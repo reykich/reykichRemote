@@ -8,6 +8,7 @@ target 'collectionOfImages' do
   # Pods for collectionOfImages
   pod 'R.swift'
   pod 'SnapKit', '~> 5.0.0'
+  pod 'NeedleFoundation'
 
   target 'collectionOfImagesTests' do
     inherit! :search_paths

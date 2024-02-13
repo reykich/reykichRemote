@@ -25,6 +25,7 @@ Pods/
 .DS_Store
 .xcodeproj/xcshareddata
 R.generated.swift
+Needle.generated.swift
 
 # fastlane
 fastlane/report.xml

@@ -16,6 +16,9 @@
 		73D555D32B7BFE8500EE8C2D /* collectionOfImagesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D555D22B7BFE8500EE8C2D /* collectionOfImagesUITests.swift */; };
 		73D555D52B7BFE8500EE8C2D /* collectionOfImagesUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D555D42B7BFE8500EE8C2D /* collectionOfImagesUITestsLaunchTests.swift */; };
 		73D555E72B7C112500EE8C2D /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D555E62B7C112500EE8C2D /* R.generated.swift */; };
+		73D555ED2B7C1EFB00EE8C2D /* Needle.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D555EC2B7C1EFB00EE8C2D /* Needle.generated.swift */; };
+		73D555EF2B7C202E00EE8C2D /* RootComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D555EE2B7C202E00EE8C2D /* RootComponent.swift */; };
+		73D555F42B7C22D100EE8C2D /* MainComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D555F32B7C22D100EE8C2D /* MainComponent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,9 @@
 		73D555D22B7BFE8500EE8C2D /* collectionOfImagesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = collectionOfImagesUITests.swift; sourceTree = "<group>"; };
 		73D555D42B7BFE8500EE8C2D /* collectionOfImagesUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = collectionOfImagesUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		73D555E62B7C112500EE8C2D /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
+		73D555EC2B7C1EFB00EE8C2D /* Needle.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Needle.generated.swift; sourceTree = "<group>"; };
+		73D555EE2B7C202E00EE8C2D /* RootComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootComponent.swift; sourceTree = "<group>"; };
+		73D555F32B7C22D100EE8C2D /* MainComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainComponent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +106,7 @@
 		73D555B02B7BFE8300EE8C2D /* collectionOfImages */ = {
 			isa = PBXGroup;
 			children = (
+				73D555F02B7C229F00EE8C2D /* Main */,
 				73D555E12B7C001900EE8C2D /* Application */,
 				73D555E22B7C007100EE8C2D /* Resources */,
 				73D555E42B7C104100EE8C2D /* Common */,
@@ -130,7 +137,7 @@
 				73D555BF2B7BFE8500EE8C2D /* Info.plist */,
 				73D555B12B7BFE8300EE8C2D /* AppDelegate.swift */,
 				73D555B32B7BFE8300EE8C2D /* SceneDelegate.swift */,
-				73D555B52B7BFE8300EE8C2D /* ViewController.swift */,
+				73D555EE2B7C202E00EE8C2D /* RootComponent.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -156,8 +163,34 @@
 			isa = PBXGroup;
 			children = (
 				73D555E62B7C112500EE8C2D /* R.generated.swift */,
+				73D555EC2B7C1EFB00EE8C2D /* Needle.generated.swift */,
 			);
 			path = Generated;
+			sourceTree = "<group>";
+		};
+		73D555F02B7C229F00EE8C2D /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				73D555F22B7C22B100EE8C2D /* Assembly */,
+				73D555F52B7C231000EE8C2D /* View */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		73D555F22B7C22B100EE8C2D /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				73D555F32B7C22D100EE8C2D /* MainComponent.swift */,
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		73D555F52B7C231000EE8C2D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				73D555B52B7BFE8300EE8C2D /* ViewController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -291,9 +324,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				73D555B62B7BFE8300EE8C2D /* ViewController.swift in Sources */,
+				73D555EF2B7C202E00EE8C2D /* RootComponent.swift in Sources */,
 				73D555B22B7BFE8300EE8C2D /* AppDelegate.swift in Sources */,
 				73D555B42B7BFE8300EE8C2D /* SceneDelegate.swift in Sources */,
 				73D555E72B7C112500EE8C2D /* R.generated.swift in Sources */,
+				73D555ED2B7C1EFB00EE8C2D /* Needle.generated.swift in Sources */,
+				73D555F42B7C22D100EE8C2D /* MainComponent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
