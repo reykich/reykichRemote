@@ -6,6 +6,7 @@
 **/*.xcworkspace/xcshareddata/*.xccheckout
 **/*.xcworkspace/xcshareddata/*.xcscmblueprint
 **/*.playground/**/timeline.xctimeline
+**/contents.xcworkspacedata
 .idea/
 
 # Build
@@ -19,6 +20,11 @@ Carthage/
 
 # CocoaPods
 Pods/
+*.xcworkspacedata
+.xcworkspace
+.DS_Store
+.xcodeproj/xcshareddata
+R.generated.swift
 
 # fastlane
 fastlane/report.xml
