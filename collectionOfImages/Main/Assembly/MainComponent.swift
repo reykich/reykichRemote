@@ -1,10 +1,13 @@
 import Foundation
 import NeedleFoundation
+import UIKit 
 
-protocol MainDependency: Dependency {
+final class MainComponent: Component<EmptyDependency> {
+    var aboutTheImageViewController: UIViewController {
+        return aboutTheImageBuilder.viewController
+    }
     
-}
-
-final class MainComponent: Component<MainDependency> {
-    
+    private var aboutTheImageBuilder: AboutTheImageBuilder {
+        return AboutTheImageBuilder(parent: self)
+    }
 }

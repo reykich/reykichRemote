@@ -13,6 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window!.overrideUserInterfaceStyle = .light
         window?.windowScene = windowScene
         let rootNavigationController = rootComponent.rootNavigationController
+        rootNavigationController.viewControllers = [rootComponent.mainViewController]
         window?.rootViewController = rootNavigationController
         window?.makeKeyAndVisible()
     }
