@@ -10,7 +10,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         registerProviderFactories()
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
-        window!.overrideUserInterfaceStyle = .light
         window?.windowScene = windowScene
         let rootNavigationController = rootComponent.rootNavigationController
         rootNavigationController.viewControllers = [rootComponent.mainViewController]
