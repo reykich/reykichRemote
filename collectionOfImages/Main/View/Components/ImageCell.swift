@@ -19,7 +19,7 @@ final class ImageCell: UICollectionViewCell {
     
     func updateUI(with model: ImageInfo) {
 //        image.image = model.image
-//        title.text = model.title
+        title.text = model.title
     }
 }
 
