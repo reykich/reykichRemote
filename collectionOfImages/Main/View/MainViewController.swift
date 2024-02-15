@@ -19,7 +19,7 @@ class MainViewController: BaseViewController<MainView> {
 
 private extension MainViewController {
     func setupActions() {
-        contentView.setupActions { [weak self] in
+        contentView.setupActions { [weak self] index in
             self?.router.openAboutTheImageScreen()
         }
     }

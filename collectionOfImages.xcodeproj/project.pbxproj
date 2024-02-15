@@ -22,6 +22,11 @@
 		73D2E99E2B7D53D70011FEBD /* AboutTheImageDefaultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D2E99D2B7D53D70011FEBD /* AboutTheImageDefaultViewModel.swift */; };
 		73D2E9A02B7D54170011FEBD /* AboutTheImageBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D2E99F2B7D54170011FEBD /* AboutTheImageBuilder.swift */; };
 		73D2E9A32B7D5B740011FEBD /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D2E9A22B7D5B740011FEBD /* Helpers.swift */; };
+		73D2E9C62B7E9BC60011FEBD /* CollectionOfImageAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D2E9C52B7E9BC60011FEBD /* CollectionOfImageAdapter.swift */; };
+		73D2E9C92B7E9DCC0011FEBD /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D2E9C82B7E9DCC0011FEBD /* ImageCell.swift */; };
+		73D2E9CC2B7E9E720011FEBD /* UICollectionViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D2E9CB2B7E9E720011FEBD /* UICollectionViewCell+.swift */; };
+		73D2E9D02B7EA0BF0011FEBD /* Manrope-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 73D2E9CE2B7EA0BF0011FEBD /* Manrope-SemiBold.ttf */; };
+		73D2E9D12B7EA0BF0011FEBD /* Manrope-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 73D2E9CF2B7EA0BF0011FEBD /* Manrope-Regular.ttf */; };
 		73D555B22B7BFE8300EE8C2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D555B12B7BFE8300EE8C2D /* AppDelegate.swift */; };
 		73D555B42B7BFE8300EE8C2D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D555B32B7BFE8300EE8C2D /* SceneDelegate.swift */; };
 		73D555B62B7BFE8300EE8C2D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D555B52B7BFE8300EE8C2D /* MainViewController.swift */; };
@@ -68,6 +73,11 @@
 		73D2E99D2B7D53D70011FEBD /* AboutTheImageDefaultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTheImageDefaultViewModel.swift; sourceTree = "<group>"; };
 		73D2E99F2B7D54170011FEBD /* AboutTheImageBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTheImageBuilder.swift; sourceTree = "<group>"; };
 		73D2E9A22B7D5B740011FEBD /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		73D2E9C52B7E9BC60011FEBD /* CollectionOfImageAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionOfImageAdapter.swift; sourceTree = "<group>"; };
+		73D2E9C82B7E9DCC0011FEBD /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		73D2E9CB2B7E9E720011FEBD /* UICollectionViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+.swift"; sourceTree = "<group>"; };
+		73D2E9CE2B7EA0BF0011FEBD /* Manrope-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-SemiBold.ttf"; sourceTree = "<group>"; };
+		73D2E9CF2B7EA0BF0011FEBD /* Manrope-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-Regular.ttf"; sourceTree = "<group>"; };
 		73D555AE2B7BFE8300EE8C2D /* collectionOfImages.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = collectionOfImages.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73D555B12B7BFE8300EE8C2D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		73D555B32B7BFE8300EE8C2D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -196,6 +206,39 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		73D2E9C42B7E9BB10011FEBD /* Adapters */ = {
+			isa = PBXGroup;
+			children = (
+				73D2E9C52B7E9BC60011FEBD /* CollectionOfImageAdapter.swift */,
+			);
+			path = Adapters;
+			sourceTree = "<group>";
+		};
+		73D2E9C72B7E9DA50011FEBD /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				73D2E9C82B7E9DCC0011FEBD /* ImageCell.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		73D2E9CA2B7E9E550011FEBD /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				73D2E9CB2B7E9E720011FEBD /* UICollectionViewCell+.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		73D2E9CD2B7EA03C0011FEBD /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				73D2E9CF2B7EA0BF0011FEBD /* Manrope-Regular.ttf */,
+				73D2E9CE2B7EA0BF0011FEBD /* Manrope-SemiBold.ttf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
 		73D555A52B7BFE8300EE8C2D = {
 			isa = PBXGroup;
 			children = (
@@ -259,6 +302,7 @@
 		73D555E22B7C007100EE8C2D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				73D2E9CD2B7EA03C0011FEBD /* Font */,
 				73D555BA2B7BFE8500EE8C2D /* Images.xcassets */,
 				73D2E98B2B7D48740011FEBD /* Colors.xcassets */,
 				73D555BC2B7BFE8500EE8C2D /* LaunchScreen.storyboard */,
@@ -269,6 +313,7 @@
 		73D555E42B7C104100EE8C2D /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				73D2E9CA2B7E9E550011FEBD /* Extensions */,
 				73D2E9A12B7D5B510011FEBD /* Helpers */,
 				73D2E9882B7D468A0011FEBD /* View */,
 				73D2E9852B7D45F40011FEBD /* Controllers */,
@@ -311,6 +356,8 @@
 			children = (
 				73D555B52B7BFE8300EE8C2D /* MainViewController.swift */,
 				73D2E9902B7D50030011FEBD /* MainView.swift */,
+				73D2E9C72B7E9DA50011FEBD /* Components */,
+				73D2E9C42B7E9BB10011FEBD /* Adapters */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -420,7 +467,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				73D2E98C2B7D48740011FEBD /* Colors.xcassets in Resources */,
+				73D2E9D12B7EA0BF0011FEBD /* Manrope-Regular.ttf in Resources */,
 				73D555BE2B7BFE8500EE8C2D /* LaunchScreen.storyboard in Resources */,
+				73D2E9D02B7EA0BF0011FEBD /* Manrope-SemiBold.ttf in Resources */,
 				73D555BB2B7BFE8500EE8C2D /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -459,12 +508,15 @@
 				73D2E9842B7D454C0011FEBD /* DefaultMainViewModel.swift in Sources */,
 				73D555B42B7BFE8300EE8C2D /* SceneDelegate.swift in Sources */,
 				73D2E9822B7D45290011FEBD /* MainViewModel.swift in Sources */,
+				73D2E9C92B7E9DCC0011FEBD /* ImageCell.swift in Sources */,
+				73D2E9CC2B7E9E720011FEBD /* UICollectionViewCell+.swift in Sources */,
 				73D2E97E2B7D44E30011FEBD /* DefaultMainRouter.swift in Sources */,
 				73D555E72B7C112500EE8C2D /* R.generated.swift in Sources */,
 				73D2E99A2B7D536B0011FEBD /* AboutTheImageView.swift in Sources */,
 				73D2E99C2B7D539E0011FEBD /* AboutTheImageViewModel.swift in Sources */,
 				73D2E9872B7D461F0011FEBD /* BaseViewController.swift in Sources */,
 				73D555ED2B7C1EFB00EE8C2D /* Needle.generated.swift in Sources */,
+				73D2E9C62B7E9BC60011FEBD /* CollectionOfImageAdapter.swift in Sources */,
 				73D2E9792B7D43620011FEBD /* MainComponent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
