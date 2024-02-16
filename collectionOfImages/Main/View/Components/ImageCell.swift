@@ -30,7 +30,7 @@ private extension ImageCell {
     }
     
     func setupImage() {
-        addSubview(image)
+        contentView.addSubview(image)
         
         image.snp.makeConstraints {
             $0.left.equalToSuperview()
@@ -42,7 +42,7 @@ private extension ImageCell {
     func setupTitle() {
         title.font = R.font.manropeRegular(size: 16.scaled)
         title.textColor = R.color.black()
-        addSubview(title)
+        contentView.addSubview(title)
         
         title.snp.makeConstraints {
             $0.left.equalTo(image.snp.right).offset(12.scaled)
