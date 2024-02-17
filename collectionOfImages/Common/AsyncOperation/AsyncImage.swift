@@ -5,7 +5,7 @@ final class AsyncImage: UIImageView {
     private let operationQueue = OperationQueue()
     
     func setImage(with stringURL: String) {
-        
+        self.image = R.image.placeholder()
         let asyncImageLoadOperation = AsyncImageLoadOperation(with: stringURL)
         asyncImageLoadOperation.completionBlock = { [weak self] in
             OperationQueue.main.addOperation { [weak self] in

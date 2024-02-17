@@ -32,6 +32,10 @@ private extension MainViewController {
         contentView.setupActions { [weak self] index in
             self?.router.openAboutTheImageScreen()
         }
+        
+        contentView.setupScrollToTopAction { [weak self] in
+            self?.contentView.scrollToTop()
+        }
     }
     
     func configureBindings() {
