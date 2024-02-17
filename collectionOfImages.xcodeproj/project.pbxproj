@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7316859C2B80E65E002B9AEE /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7316859B2B80E65E002B9AEE /* AsyncImage.swift */; };
+		7316859F2B811198002B9AEE /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7316859E2B811198002B9AEE /* ImageCacheManager.swift */; };
 		73D2E9792B7D43620011FEBD /* MainComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D2E9782B7D43620011FEBD /* MainComponent.swift */; };
 		73D2E97C2B7D44A10011FEBD /* MainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D2E97B2B7D44A10011FEBD /* MainRouter.swift */; };
 		73D2E97E2B7D44E30011FEBD /* DefaultMainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D2E97D2B7D44E30011FEBD /* DefaultMainRouter.swift */; };
@@ -59,6 +60,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7316859B2B80E65E002B9AEE /* AsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
+		7316859E2B811198002B9AEE /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		73D2E9782B7D43620011FEBD /* MainComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainComponent.swift; sourceTree = "<group>"; };
 		73D2E97B2B7D44A10011FEBD /* MainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRouter.swift; sourceTree = "<group>"; };
 		73D2E97D2B7D44E30011FEBD /* DefaultMainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMainRouter.swift; sourceTree = "<group>"; };
@@ -124,6 +127,12 @@
 			isa = PBXGroup;
 			children = (
 			);
+		7316859D2B811189002B9AEE /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				7316859E2B811198002B9AEE /* ImageCacheManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		73D2E97A2B7D448E0011FEBD /* Router */ = {
@@ -320,6 +329,7 @@
 		73D555E42B7C104100EE8C2D /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				7316859D2B811189002B9AEE /* Managers */,
 				73D2E9CA2B7E9E550011FEBD /* Extensions */,
 				73D2E9A12B7D5B510011FEBD /* Helpers */,
 				73D2E9882B7D468A0011FEBD /* View */,
@@ -522,6 +532,7 @@
 				73D2E99A2B7D536B0011FEBD /* AboutTheImageView.swift in Sources */,
 				73D2E99C2B7D539E0011FEBD /* AboutTheImageViewModel.swift in Sources */,
 				73D2E9872B7D461F0011FEBD /* BaseViewController.swift in Sources */,
+				7316859F2B811198002B9AEE /* ImageCacheManager.swift in Sources */,
 				73D555ED2B7C1EFB00EE8C2D /* Needle.generated.swift in Sources */,
 				73D2E9C62B7E9BC60011FEBD /* CollectionOfImageAdapter.swift in Sources */,
 				7316859C2B80E65E002B9AEE /* AsyncImage.swift in Sources */,
