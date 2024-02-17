@@ -6,7 +6,7 @@ final class CollectionOfImageAdapter {
     private let collectionView: UICollectionView
     private var dataSource: CollectionOfImageDataSource?
     
-    private var likeAction: (((Bool) -> Void) -> Void)?
+    private var likeAction: ((Int) -> Void)?
     
     init(_ collectionView: UICollectionView) {
         self.collectionView = collectionView
@@ -24,7 +24,7 @@ final class CollectionOfImageAdapter {
 
 //MARK: - Setup Action
 extension CollectionOfImageAdapter {
-    func setupLikeAction(_ action: @escaping ((Bool) -> Void) -> Void) {
+    func setupLikeAction(_ action: @escaping (Int) -> Void) {
         self.likeAction = action
     }
 }
@@ -42,8 +42,8 @@ private extension CollectionOfImageAdapter {
                     return UICollectionViewCell()
                 }
                 cell.updateUI(with: imageInfo)
-                cell.setupAction { [weak self] likeAction in
-                    self?.likeAction?(likeAction)
+                cell.setupAction { [weak self] in
+                    self?.likeAction?(indexPath.row)
                 }
                 cell.layer.cornerRadius = 5
                 return cell
@@ -66,4 +66,5 @@ struct CollectionOfImages: Hashable {
 struct ImageInfo: Hashable {
     let imageUrl: String
     let title: String
+    let isLiked: Bool
 }

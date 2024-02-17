@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import NeedleFoundation
 
-public final class RootComponent: BootstrapComponent {
+final class RootComponent: BootstrapComponent {
     public var rootNavigationController: UINavigationController {
         shared {
             return UINavigationController()
@@ -14,7 +14,7 @@ public final class RootComponent: BootstrapComponent {
     }
     
     private var mainViewModel: MainViewModel {
-        return DefaultMainViewModel()
+        return DefaultMainViewModel(likeManager: likeManager)
     }
     
     private var mainRouter: MainRouter {
@@ -26,5 +26,11 @@ public final class RootComponent: BootstrapComponent {
     
     private var mainComponent: MainComponent {
         return MainComponent(parent: self)
+    }
+    
+    public var likeManager: LikeManager {
+        shared {
+            return DefaultLikeManager()
+        }
     }
 }

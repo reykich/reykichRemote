@@ -7,7 +7,7 @@ final class ImageCell: UICollectionViewCell {
     private let title = UILabel()
     private let like = UIButton()
     
-    private var action: (((Bool) -> Void) -> Void)?
+    private var action: (EmptyClosure)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,12 +27,13 @@ final class ImageCell: UICollectionViewCell {
     func updateUI(with model: ImageInfo) {
         image.setImage(with: model.imageUrl)
         title.text = model.title
+        like.setImage(model.isLiked ? R.image.like() : R.image.notLike(), for: .normal)
     }
 }
 
 //MARK: - Setup Actions
 extension ImageCell {
-    func setupAction(_ action: @escaping ((Bool) -> Void) -> Void) {
+    func setupAction(_ action: @escaping EmptyClosure) {
         self.action = action
     }
 }
@@ -85,8 +86,6 @@ private extension ImageCell {
     }
     
     @objc func likeDidTap() {
-        action? { [weak self] isLike in
-            self?.like.setImage(isLike ? R.image.like() : R.image.notLike(), for: .normal)
-        }
+        action?()
     }
 }

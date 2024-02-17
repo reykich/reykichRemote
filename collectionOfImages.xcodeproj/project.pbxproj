@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		7316859C2B80E65E002B9AEE /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7316859B2B80E65E002B9AEE /* AsyncImage.swift */; };
 		7316859F2B811198002B9AEE /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7316859E2B811198002B9AEE /* ImageCacheManager.swift */; };
+		7379DDBE2B81527E00456E29 /* LikeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7379DDBD2B81527E00456E29 /* LikeManager.swift */; };
+		7379DDC22B81530600456E29 /* LikeImageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7379DDC12B81530600456E29 /* LikeImageObject.swift */; };
 		73D2E9792B7D43620011FEBD /* MainComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D2E9782B7D43620011FEBD /* MainComponent.swift */; };
 		73D2E97C2B7D44A10011FEBD /* MainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D2E97B2B7D44A10011FEBD /* MainRouter.swift */; };
 		73D2E97E2B7D44E30011FEBD /* DefaultMainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D2E97D2B7D44E30011FEBD /* DefaultMainRouter.swift */; };
@@ -62,6 +64,8 @@
 /* Begin PBXFileReference section */
 		7316859B2B80E65E002B9AEE /* AsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
 		7316859E2B811198002B9AEE /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
+		7379DDBD2B81527E00456E29 /* LikeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeManager.swift; sourceTree = "<group>"; };
+		7379DDC12B81530600456E29 /* LikeImageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeImageObject.swift; sourceTree = "<group>"; };
 		73D2E9782B7D43620011FEBD /* MainComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainComponent.swift; sourceTree = "<group>"; };
 		73D2E97B2B7D44A10011FEBD /* MainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRouter.swift; sourceTree = "<group>"; };
 		73D2E97D2B7D44E30011FEBD /* DefaultMainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMainRouter.swift; sourceTree = "<group>"; };
@@ -130,9 +134,27 @@
 		7316859D2B811189002B9AEE /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				7379DDBF2B8152DC00456E29 /* LikeManager */,
 				7316859E2B811198002B9AEE /* ImageCacheManager.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		7379DDBF2B8152DC00456E29 /* LikeManager */ = {
+			isa = PBXGroup;
+			children = (
+				7379DDC02B8152E700456E29 /* DataBase */,
+				7379DDBD2B81527E00456E29 /* LikeManager.swift */,
+			);
+			path = LikeManager;
+			sourceTree = "<group>";
+		};
+		7379DDC02B8152E700456E29 /* DataBase */ = {
+			isa = PBXGroup;
+			children = (
+				7379DDC12B81530600456E29 /* LikeImageObject.swift */,
+			);
+			path = DataBase;
 			sourceTree = "<group>";
 		};
 		73D2E97A2B7D448E0011FEBD /* Router */ = {
@@ -516,6 +538,7 @@
 				73D2E99E2B7D53D70011FEBD /* AboutTheImageDefaultViewModel.swift in Sources */,
 				73D555B62B7BFE8300EE8C2D /* MainViewController.swift in Sources */,
 				73D2E9A32B7D5B740011FEBD /* Helpers.swift in Sources */,
+				7379DDBE2B81527E00456E29 /* LikeManager.swift in Sources */,
 				73D2E9912B7D50030011FEBD /* MainView.swift in Sources */,
 				73D2E98A2B7D46980011FEBD /* BaseView.swift in Sources */,
 				73D2E9982B7D53220011FEBD /* AboutTheImageViewController.swift in Sources */,
@@ -529,6 +552,7 @@
 				73D2E9CC2B7E9E720011FEBD /* UICollectionViewCell+.swift in Sources */,
 				73D2E97E2B7D44E30011FEBD /* DefaultMainRouter.swift in Sources */,
 				73D555E72B7C112500EE8C2D /* R.generated.swift in Sources */,
+				7379DDC22B81530600456E29 /* LikeImageObject.swift in Sources */,
 				73D2E99A2B7D536B0011FEBD /* AboutTheImageView.swift in Sources */,
 				73D2E99C2B7D539E0011FEBD /* AboutTheImageViewModel.swift in Sources */,
 				73D2E9872B7D461F0011FEBD /* BaseViewController.swift in Sources */,

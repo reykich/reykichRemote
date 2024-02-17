@@ -10,6 +10,7 @@ target 'collectionOfImages' do
   pod 'SnapKit', '~> 5.0.0'
   pod 'NeedleFoundation'
   pod 'Kingfisher'
+  pod 'RealmSwift', '~> 10'
 
   target 'collectionOfImagesTests' do
     inherit! :search_paths

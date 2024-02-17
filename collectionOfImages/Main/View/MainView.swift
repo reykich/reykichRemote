@@ -48,7 +48,7 @@ extension MainView {
         self.scrollToTopAction = action
     }
     
-    func setupLikeAction(_ action: @escaping ((Bool) -> Void) -> Void) {
+    func setupLikeAction(_ action: @escaping (Int) -> Void) {
         dataSource.setupLikeAction(action)
     }
 }

@@ -4,7 +4,7 @@ import Combine
 protocol MainViewModel: AnyObject {
     var collectionOfImages: AnyPublisher<CollectionOfImages, Never> { get }
     var aboutTheImage: AnyPublisher<AboutTheImage, Never> { get }
-    func viewDidLoad()
+    func viewViewAppear()
     func selectAboutTheImage(with index: Int)
-    func processLike(with action: (Bool) -> Void)
+    func processLike(with index: Int)
 }

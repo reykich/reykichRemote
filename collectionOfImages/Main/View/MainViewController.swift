@@ -17,7 +17,11 @@ class MainViewController: BaseViewController<MainView> {
         super.viewDidLoad()
         setupActions()
         configureBindings()
-        viewModel.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.viewViewAppear()
     }
     
     deinit {
@@ -37,8 +41,8 @@ private extension MainViewController {
             self?.contentView.scrollToTop()
         }
         
-        contentView.setupLikeAction { [weak self] likeAction in
-            self?.viewModel.processLike(with: likeAction)
+        contentView.setupLikeAction { [weak self] index in
+            self?.viewModel.processLike(with: index)
         }
     }
     

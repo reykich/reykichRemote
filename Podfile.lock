@@ -2,12 +2,18 @@ PODS:
   - Kingfisher (7.11.0)
   - NeedleFoundation (0.17.2)
   - R.swift (7.3.2)
+  - Realm (10.46.0):
+    - Realm/Headers (= 10.46.0)
+  - Realm/Headers (10.46.0)
+  - RealmSwift (10.46.0):
+    - Realm (= 10.46.0)
   - SnapKit (5.0.1)
 
 DEPENDENCIES:
   - Kingfisher
   - NeedleFoundation
   - R.swift
+  - RealmSwift (~> 10)
   - SnapKit (~> 5.0.0)
 
 SPEC REPOS:
@@ -15,14 +21,18 @@ SPEC REPOS:
     - Kingfisher
     - NeedleFoundation
     - R.swift
+    - Realm
+    - RealmSwift
     - SnapKit
 
 SPEC CHECKSUMS:
   Kingfisher: b9c985d864d43515f404f1ef4a8ce7d802ace3ac
   NeedleFoundation: 36cfaea9ae9eb527a796f5c1df19296c722666b8
   R.swift: 0af0d882f49f03711415cb4e5215daa977d8a480
+  Realm: 699b80d8e5fc66acafd2d530199e77781a2d69d3
+  RealmSwift: 3230b8fc63759433a6938a0dd2a5dc0dc2b15760
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: b9d97d25f29ba8001c99c2c6dad4ae932df2fd11
+PODFILE CHECKSUM: f5c01f1f4429fe7665373f732e6d01afd7a09388
 
 COCOAPODS: 1.14.3
