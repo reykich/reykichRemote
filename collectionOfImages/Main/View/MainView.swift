@@ -41,9 +41,9 @@ extension MainView {
 private extension MainView {
     func setupCollectionView() {
         collectionView.delegate = self
-        collectionFlowLayout.minimumLineSpacing = 0
+        collectionFlowLayout.minimumLineSpacing = 5.scaled
         collectionFlowLayout.scrollDirection = .vertical
-        collectionFlowLayout.itemSize = CGSize(width: 358.scaled, height: 60.scaled)
+        collectionFlowLayout.itemSize = CGSize(width: 358.scaled, height: 100.scaled)
         
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false

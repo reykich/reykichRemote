@@ -34,6 +34,7 @@ private extension CollectionOfImageAdapter {
                     return UICollectionViewCell()
                 }
                 cell.updateUI(with: imageInfo)
+                cell.layer.cornerRadius = 5
                 return cell
             })
         return dataSource
