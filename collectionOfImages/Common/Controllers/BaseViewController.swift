@@ -7,6 +7,10 @@ class BaseViewController<ContentView: BaseView>: UIViewController {
         return true
     }
     
+    var isAnimated: Bool {
+        return true
+    }
+    
     init() {
         self.contentView = ContentView()
         super.init(nibName: nil, bundle: nil)
@@ -44,6 +48,6 @@ class BaseViewController<ContentView: BaseView>: UIViewController {
     }
     
     @objc private func tapBackButton() {
-        navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: isAnimated)
     }
 }

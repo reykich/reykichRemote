@@ -15,6 +15,6 @@ final class DefaultMainRouter {
 extension DefaultMainRouter: MainRouter {
     func openAboutTheImageScreen(with aboutTheImage: AboutTheImage) {
         let viewController = mainComponent.getAboutTheImageViewController(with: aboutTheImage)
-        navigationController.pushViewController(viewController, animated: true)
+        navigationController.pushViewController(viewController, animated: false)
     }
 }

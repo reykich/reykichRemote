@@ -6,6 +6,7 @@ final class AboutTheImageViewController: BaseViewController<AboutTheImageView> {
     private let viewModel: AboutTheImageViewModel
     private var cancellableSet: Set<AnyCancellable> = []
     override var navBarIsHidden: Bool { false }
+    override var isAnimated: Bool { false }
     
     init(viewModel: AboutTheImageViewModel) {
         self.viewModel = viewModel
