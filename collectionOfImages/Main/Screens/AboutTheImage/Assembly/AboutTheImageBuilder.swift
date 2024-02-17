@@ -2,11 +2,11 @@ import Foundation
 import NeedleFoundation
 
 final class AboutTheImageBuilder: Component<EmptyDependency> {
-    var viewController: UIViewController {
-        return AboutTheImageViewController(viewModel: viewModel)
+    func getViewController(with aboutTheImage: AboutTheImage) -> UIViewController {
+        return AboutTheImageViewController(viewModel: getViewModel(with: aboutTheImage))
     }
     
-    private var viewModel: AboutTheImageViewModel {
-        return AboutTheImageDefaultViewModel()
+    private func getViewModel(with aboutTheImage: AboutTheImage) -> AboutTheImageViewModel {
+        return AboutTheImageDefaultViewModel(aboutTheImage: aboutTheImage)
     }
 }

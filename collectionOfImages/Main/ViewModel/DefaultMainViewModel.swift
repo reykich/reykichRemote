@@ -2,13 +2,18 @@ import Foundation
 import Combine
 
 final class DefaultMainViewModel {
-    private var photos: [CollectionOfImageResponse]?
+    private var images: [CollectionOfImageResponse]?
     private let collectionOfImagesSubject = PassthroughSubject<CollectionOfImages, Never>()
+    private let aboutTheImageSubject = PassthroughSubject<AboutTheImage, Never>()
 }
 
 extension DefaultMainViewModel: MainViewModel {
     var collectionOfImages: AnyPublisher<CollectionOfImages, Never> {
         collectionOfImagesSubject.eraseToAnyPublisher()
+    }
+    
+    var aboutTheImage: AnyPublisher<AboutTheImage, Never> {
+        aboutTheImageSubject.eraseToAnyPublisher()
     }
     
     func viewDidLoad() {
@@ -20,13 +25,19 @@ extension DefaultMainViewModel: MainViewModel {
                     [CollectionOfImageResponse].self,
                     from: data
                 )
-                self.photos = collectionOfImageResponse
+                self.images = collectionOfImageResponse
                 let collectionOfImage = convertToImageCollection(with: collectionOfImageResponse)
                 collectionOfImagesSubject.send(collectionOfImage)
             } catch {
                 print(error)
             }
         }
+    }
+    
+    func selectAboutTheImage(with index: Int) {
+        guard let images else { return }
+        let image = images[index]
+        aboutTheImageSubject.send(AboutTheImage(id: image.id, url: image.url, title: image.title))
     }
 }
 
@@ -48,4 +59,10 @@ struct CollectionOfImageResponse: Codable {
     let title: String
     let url: String
     let thumbnailUrl: String
+}
+
+struct AboutTheImage {
+    let id: Int
+    let url: String
+    let title: String
 }

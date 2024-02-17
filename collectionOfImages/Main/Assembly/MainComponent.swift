@@ -3,8 +3,8 @@ import NeedleFoundation
 import UIKit 
 
 final class MainComponent: Component<EmptyDependency> {
-    var aboutTheImageViewController: UIViewController {
-        return aboutTheImageBuilder.viewController
+    func getAboutTheImageViewController(with aboutTheImage: AboutTheImage) -> UIViewController {
+        return aboutTheImageBuilder.getViewController(with: aboutTheImage)
     }
     
     private var aboutTheImageBuilder: AboutTheImageBuilder {

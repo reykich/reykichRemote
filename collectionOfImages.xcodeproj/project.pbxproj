@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		731685972B80DD27002B9AEE /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731685962B80DD27002B9AEE /* AsyncOperation.swift */; };
-		7316859A2B80E0CE002B9AEE /* AsyncImageLoadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731685992B80E0CE002B9AEE /* AsyncImageLoadOperation.swift */; };
 		7316859C2B80E65E002B9AEE /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7316859B2B80E65E002B9AEE /* AsyncImage.swift */; };
 		73D2E9792B7D43620011FEBD /* MainComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D2E9782B7D43620011FEBD /* MainComponent.swift */; };
 		73D2E97C2B7D44A10011FEBD /* MainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D2E97B2B7D44A10011FEBD /* MainRouter.swift */; };
@@ -123,14 +121,9 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		731685982B80DD2E002B9AEE /* AsyncOperation */ = {
 			isa = PBXGroup;
 			children = (
-				731685962B80DD27002B9AEE /* AsyncOperation.swift */,
-				731685992B80E0CE002B9AEE /* AsyncImageLoadOperation.swift */,
-				7316859B2B80E65E002B9AEE /* AsyncImage.swift */,
 			);
-			path = AsyncOperation;
 			sourceTree = "<group>";
 		};
 		73D2E97A2B7D448E0011FEBD /* Router */ = {
@@ -162,6 +155,7 @@
 		73D2E9882B7D468A0011FEBD /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7316859B2B80E65E002B9AEE /* AsyncImage.swift */,
 				73D2E9892B7D46980011FEBD /* BaseView.swift */,
 			);
 			path = View;
@@ -326,7 +320,6 @@
 		73D555E42B7C104100EE8C2D /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				731685982B80DD2E002B9AEE /* AsyncOperation */,
 				73D2E9CA2B7E9E550011FEBD /* Extensions */,
 				73D2E9A12B7D5B510011FEBD /* Helpers */,
 				73D2E9882B7D468A0011FEBD /* View */,
@@ -514,7 +507,6 @@
 				73D555B62B7BFE8300EE8C2D /* MainViewController.swift in Sources */,
 				73D2E9A32B7D5B740011FEBD /* Helpers.swift in Sources */,
 				73D2E9912B7D50030011FEBD /* MainView.swift in Sources */,
-				7316859A2B80E0CE002B9AEE /* AsyncImageLoadOperation.swift in Sources */,
 				73D2E98A2B7D46980011FEBD /* BaseView.swift in Sources */,
 				73D2E9982B7D53220011FEBD /* AboutTheImageViewController.swift in Sources */,
 				73D2E97C2B7D44A10011FEBD /* MainRouter.swift in Sources */,
@@ -532,7 +524,6 @@
 				73D2E9872B7D461F0011FEBD /* BaseViewController.swift in Sources */,
 				73D555ED2B7C1EFB00EE8C2D /* Needle.generated.swift in Sources */,
 				73D2E9C62B7E9BC60011FEBD /* CollectionOfImageAdapter.swift in Sources */,
-				731685972B80DD27002B9AEE /* AsyncOperation.swift in Sources */,
 				7316859C2B80E65E002B9AEE /* AsyncImage.swift in Sources */,
 				73D2E9792B7D43620011FEBD /* MainComponent.swift in Sources */,
 			);

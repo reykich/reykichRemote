@@ -30,7 +30,7 @@ class MainViewController: BaseViewController<MainView> {
 private extension MainViewController {
     func setupActions() {
         contentView.setupActions { [weak self] index in
-            self?.router.openAboutTheImageScreen()
+            self?.viewModel.selectAboutTheImage(with: index)
         }
         
         contentView.setupScrollToTopAction { [weak self] in
@@ -43,6 +43,12 @@ private extension MainViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] collectionOfImages in
                 self?.contentView.updateUI(with: collectionOfImages)
+            }
+            .store(in: &cancellableSet)
+        viewModel.aboutTheImage
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] aboutTheImage in
+                self?.router.openAboutTheImageScreen(with: aboutTheImage)
             }
             .store(in: &cancellableSet)
     }
