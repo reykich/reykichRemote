@@ -39,6 +39,10 @@ extension DefaultMainViewModel: MainViewModel {
         let image = images[index]
         aboutTheImageSubject.send(AboutTheImage(id: image.id, url: image.url, title: image.title))
     }
+    
+    func processLike(with action: (Bool) -> Void) {
+        action(true)
+    }
 }
 
 private extension DefaultMainViewModel {

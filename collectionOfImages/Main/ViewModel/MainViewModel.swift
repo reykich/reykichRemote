@@ -6,4 +6,5 @@ protocol MainViewModel: AnyObject {
     var aboutTheImage: AnyPublisher<AboutTheImage, Never> { get }
     func viewDidLoad()
     func selectAboutTheImage(with index: Int)
+    func processLike(with action: (Bool) -> Void)
 }

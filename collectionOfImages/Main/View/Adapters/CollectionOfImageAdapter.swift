@@ -6,7 +6,7 @@ final class CollectionOfImageAdapter {
     private let collectionView: UICollectionView
     private var dataSource: CollectionOfImageDataSource?
     
-    private var action: EmptyClosure?
+    private var likeAction: (((Bool) -> Void) -> Void)?
     
     init(_ collectionView: UICollectionView) {
         self.collectionView = collectionView
@@ -22,6 +22,14 @@ final class CollectionOfImageAdapter {
     }
 }
 
+//MARK: - Setup Action
+extension CollectionOfImageAdapter {
+    func setupLikeAction(_ action: @escaping ((Bool) -> Void) -> Void) {
+        self.likeAction = action
+    }
+}
+
+//MARK: - Private Extension
 private extension CollectionOfImageAdapter {
     func createDataSource() -> CollectionOfImageDataSource {
         let dataSource = CollectionOfImageDataSource(
@@ -34,6 +42,9 @@ private extension CollectionOfImageAdapter {
                     return UICollectionViewCell()
                 }
                 cell.updateUI(with: imageInfo)
+                cell.setupAction { [weak self] likeAction in
+                    self?.likeAction?(likeAction)
+                }
                 cell.layer.cornerRadius = 5
                 return cell
             })

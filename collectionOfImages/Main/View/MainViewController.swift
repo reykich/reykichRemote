@@ -36,6 +36,10 @@ private extension MainViewController {
         contentView.setupScrollToTopAction { [weak self] in
             self?.contentView.scrollToTop()
         }
+        
+        contentView.setupLikeAction { [weak self] likeAction in
+            self?.viewModel.processLike(with: likeAction)
+        }
     }
     
     func configureBindings() {

@@ -5,6 +5,9 @@ import SnapKit
 final class ImageCell: UICollectionViewCell {
     private let image = AsyncImage()
     private let title = UILabel()
+    private let like = UIButton()
+    
+    private var action: (((Bool) -> Void) -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,10 +30,19 @@ final class ImageCell: UICollectionViewCell {
     }
 }
 
+//MARK: - Setup Actions
+extension ImageCell {
+    func setupAction(_ action: @escaping ((Bool) -> Void) -> Void) {
+        self.action = action
+    }
+}
+
+//MARK: - Private Extension
 private extension ImageCell {
     func setupUI() {
         backgroundColor = R.color.gray()
         setupImage()
+        setupLike()
         setupTitle()
     }
     
@@ -46,6 +58,18 @@ private extension ImageCell {
         }
     }
     
+    func setupLike() {
+        like.setImage(R.image.notLike(), for: .normal)
+        like.addTarget(self, action: #selector(likeDidTap), for: .touchUpInside)
+        addSubview(like)
+        
+        like.snp.makeConstraints {
+            $0.right.equalToSuperview().inset(15.scaled)
+            $0.centerY.equalToSuperview()
+            $0.size.equalTo(20.scaled)
+        }
+    }
+    
     func setupTitle() {
         title.font = R.font.manropeRegular(size: 16.scaled)
         title.textColor = R.color.black()
@@ -55,8 +79,14 @@ private extension ImageCell {
         
         title.snp.makeConstraints {
             $0.left.equalTo(image.snp.right).offset(12.scaled)
-            $0.right.equalToSuperview().inset(10)
+            $0.right.equalTo(like.snp.left).offset(-15)
             $0.top.bottom.equalToSuperview().inset(10.scaled)
+        }
+    }
+    
+    @objc func likeDidTap() {
+        action? { [weak self] isLike in
+            self?.like.setImage(isLike ? R.image.like() : R.image.notLike(), for: .normal)
         }
     }
 }
