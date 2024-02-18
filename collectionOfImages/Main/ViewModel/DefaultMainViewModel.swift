@@ -190,8 +190,8 @@ private extension DefaultMainViewModel {
             return ImageInfo(
                 id: likeImageObject.id,
                 albumId: likeImageObject.albumId,
-                imageUrl: likeImageObject.thumbnailUrl,
-                fullSizeImageUrl: likeImageObject.url,
+                imageUrl: likeImageObject.url,
+                fullSizeImageUrl: likeImageObject.thumbnailUrl,
                 title: likeImageObject.title,
                 isLiked: true
             )
