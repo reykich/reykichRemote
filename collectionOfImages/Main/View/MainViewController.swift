@@ -44,6 +44,10 @@ private extension MainViewController {
         contentView.setupLikeAction { [weak self] index in
             self?.viewModel.processLike(with: index)
         }
+        
+        contentView.setupFavoriteAction { [weak self] in
+            self?.viewModel.updateFavoritesDisplay()
+        }
     }
     
     func configureBindings() {
@@ -57,6 +61,19 @@ private extension MainViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] collectionOfImage in
                 self?.router.openAboutTheImageScreen(with: collectionOfImage)
+            }
+            .store(in: &cancellableSet)
+        viewModel.isFavorite
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isFavorite in
+                self?.contentView.updateFavoriteImage(with: isFavorite)
+            }
+            .store(in: &cancellableSet)
+        
+        viewModel.favoritePlaceholderEnabled
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] placeholderEnabled in
+                self?.contentView.updateShowPlaceholder(with: placeholderEnabled)
             }
             .store(in: &cancellableSet)
     }

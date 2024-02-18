@@ -3,11 +3,12 @@ import UIKit
 import SnapKit
 
 final class MainView: BaseView {
+    private let headerView = HeaderView()
     private let collectionFlowLayout = UICollectionViewFlowLayout()
     private let dataSource: CollectionOfImageAdapter
     private let collectionView: UICollectionView
-    
     private let scrollToTopButton = UIButton()
+    private let placeholder = UILabel()
     
     private var action: ((Int) -> Void)?
     private var scrollToTopAction: EmptyClosure?
@@ -26,19 +27,31 @@ final class MainView: BaseView {
     
     override func setupUI() {
         backgroundColor = .white
+        setupHeaderView()
         setupCollectionView()
         setupScrollToTopButton()
+        setupPlaceholder()
     }
     
     func updateUI(with model: CollectionOfImages) {
         dataSource.update(with: model)
     }
     
+    func updateFavoriteImage(with isFavorite: Bool) {
+        headerView.updateUI(with: isFavorite)
+    }
+    
     func scrollToTop() {
         collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
     }
+    
+    func updateShowPlaceholder(with showPlaceholder: Bool) {
+        collectionView.isHidden = showPlaceholder
+        placeholder.isHidden = !showPlaceholder
+    }
 }
 
+//MARK: - Setup Action
 extension MainView {
     func setupActions(_ action: @escaping (Int) -> Void) {
         self.action = action
@@ -51,9 +64,24 @@ extension MainView {
     func setupLikeAction(_ action: @escaping (Int) -> Void) {
         dataSource.setupLikeAction(action)
     }
+    
+    func setupFavoriteAction(_ action: @escaping EmptyClosure) {
+        headerView.setupAction(action)
+    }
 }
 
+//MARK: - Private Extension
 private extension MainView {
+    func setupHeaderView() {
+        addSubview(headerView)
+        
+        headerView.snp.makeConstraints {
+            $0.left.right.equalToSuperview()
+            $0.top.equalTo(safeAreaLayoutGuide.snp.top)
+            $0.height.equalTo(40.scaled)
+        }
+    }
+    
     func setupCollectionView() {
         collectionView.delegate = self
         collectionFlowLayout.minimumLineSpacing = 5.scaled
@@ -69,7 +97,7 @@ private extension MainView {
         addSubview(collectionView)
         
         collectionView.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide.snp.top)
+            $0.top.equalTo(headerView.snp.bottom)
             $0.left.right.equalToSuperview().inset(16.scaled)
             $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
         }
@@ -89,6 +117,21 @@ private extension MainView {
             $0.right.equalToSuperview().inset(30.scaled)
             $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(50.scaled)
             $0.size.equalTo(30.scaled)
+        }
+    }
+    
+    func setupPlaceholder() {
+        placeholder.isHidden = true
+        placeholder.textAlignment = .center
+        placeholder.lineBreakMode = .byWordWrapping
+        placeholder.numberOfLines = 0
+        placeholder.text = R.string.localizable.mainScreenPlaceholder()
+        placeholder.font = R.font.manropeSemiBold(size: 22.scaled)
+        placeholder.textColor = R.color.black()
+        addSubview(placeholder)
+        
+        placeholder.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
     }
     

@@ -7,6 +7,9 @@ final class DefaultMainViewModel {
     private var likeImages: [LikeImageObject]?
     private let collectionOfImagesSubject = PassthroughSubject<CollectionOfImages, Never>()
     private let collectionOfImageResponseSubject = PassthroughSubject<CollectionOfImageResponse, Never>()
+    private let isFavoriteSubject = CurrentValueSubject<Bool, Never>(false)
+    private let favoritePlaceholderEnabledSubject = PassthroughSubject<Bool, Never>()
+    
     
     init(likeManager: LikeManager) {
         self.likeManager = likeManager
@@ -20,6 +23,14 @@ extension DefaultMainViewModel: MainViewModel {
     
     var collectionOfImageResponse: AnyPublisher<CollectionOfImageResponse, Never> {
         collectionOfImageResponseSubject.eraseToAnyPublisher()
+    }
+    
+    var isFavorite: AnyPublisher<Bool, Never> {
+        isFavoriteSubject.eraseToAnyPublisher()
+    }
+    
+    var favoritePlaceholderEnabled: AnyPublisher<Bool, Never> {
+        favoritePlaceholderEnabledSubject.eraseToAnyPublisher()
     }
     
     func viewViewAppear() {
@@ -51,8 +62,22 @@ extension DefaultMainViewModel: MainViewModel {
             guard let images else { return }
             likeManager.handleLike(with: images[index])
             updateLikeImages()
+            guard !isFavoriteSubject.value else {
+                showFavorites()
+                return
+            }
             let collectionOfImage = convertToImageCollection(with: images)
             collectionOfImagesSubject.send(collectionOfImage)
+        }
+    }
+    
+    func updateFavoritesDisplay() {
+        Task { @MainActor in
+            guard isFavoriteSubject.value else {
+                showFavorites()
+                return
+            }
+            hideFavorites()
         }
     }
 }
@@ -73,6 +98,28 @@ private extension DefaultMainViewModel {
     }
     
     @MainActor
+    func showFavorites() {
+        guard let likeImages = likeImageConvertToImageCollection(), likeImages.imagesInfo.count > 0 else {
+            isFavoriteSubject.send(true)
+            favoritePlaceholderEnabledSubject.send(true)
+            return
+        }
+        isFavoriteSubject.send(true)
+        collectionOfImagesSubject.send(likeImages)
+    }
+    
+    @MainActor
+    func hideFavorites() {
+        Task { @MainActor in
+            guard let images else { return }
+            let collectionOfImage = convertToImageCollection(with: images)
+            favoritePlaceholderEnabledSubject.send(false)
+            isFavoriteSubject.send(false)
+            collectionOfImagesSubject.send(collectionOfImage)
+        }
+    }
+    
+    @MainActor
     func convertToImageCollection(with model: [CollectionOfImageResponse]) -> CollectionOfImages {
         let imagesInfo = model.map { collectionOfImageResponse in
             return ImageInfo(
@@ -82,6 +129,19 @@ private extension DefaultMainViewModel {
             )
         }
         return CollectionOfImages(section: .main, imagesInfo: imagesInfo)
+    }
+    
+    @MainActor
+    func likeImageConvertToImageCollection() -> CollectionOfImages? {
+        guard let likeImages else { return nil }
+        let collectionOfImages = likeImages.map { likeImageObject in
+            return ImageInfo(
+                imageUrl: likeImageObject.thumbnailUrl,
+                title: likeImageObject.title,
+                isLiked: true
+            )
+        }
+        return CollectionOfImages(section: .main, imagesInfo: collectionOfImages)
     }
     
     @MainActor

@@ -12,6 +12,8 @@
 		7379DDBE2B81527E00456E29 /* LikeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7379DDBD2B81527E00456E29 /* LikeManager.swift */; };
 		7379DDC22B81530600456E29 /* LikeImageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7379DDC12B81530600456E29 /* LikeImageObject.swift */; };
 		7379DDC42B81898600456E29 /* DefaultLikeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7379DDC32B81898600456E29 /* DefaultLikeManager.swift */; };
+		7379DDC62B818B5A00456E29 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7379DDC52B818B5A00456E29 /* Localizable.strings */; };
+		7379DDC92B818C2800456E29 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7379DDC82B818C2800456E29 /* HeaderView.swift */; };
 		73D2E9792B7D43620011FEBD /* MainComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D2E9782B7D43620011FEBD /* MainComponent.swift */; };
 		73D2E97C2B7D44A10011FEBD /* MainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D2E97B2B7D44A10011FEBD /* MainRouter.swift */; };
 		73D2E97E2B7D44E30011FEBD /* DefaultMainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D2E97D2B7D44E30011FEBD /* DefaultMainRouter.swift */; };
@@ -68,6 +70,8 @@
 		7379DDBD2B81527E00456E29 /* LikeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeManager.swift; sourceTree = "<group>"; };
 		7379DDC12B81530600456E29 /* LikeImageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeImageObject.swift; sourceTree = "<group>"; };
 		7379DDC32B81898600456E29 /* DefaultLikeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLikeManager.swift; sourceTree = "<group>"; };
+		7379DDC52B818B5A00456E29 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		7379DDC82B818C2800456E29 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		73D2E9782B7D43620011FEBD /* MainComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainComponent.swift; sourceTree = "<group>"; };
 		73D2E97B2B7D44A10011FEBD /* MainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRouter.swift; sourceTree = "<group>"; };
 		73D2E97D2B7D44E30011FEBD /* DefaultMainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMainRouter.swift; sourceTree = "<group>"; };
@@ -158,6 +162,14 @@
 				7379DDC12B81530600456E29 /* LikeImageObject.swift */,
 			);
 			path = DataBase;
+			sourceTree = "<group>";
+		};
+		7379DDC72B818C1000456E29 /* Subview */ = {
+			isa = PBXGroup;
+			children = (
+				7379DDC82B818C2800456E29 /* HeaderView.swift */,
+			);
+			path = Subview;
 			sourceTree = "<group>";
 		};
 		73D2E97A2B7D448E0011FEBD /* Router */ = {
@@ -345,6 +357,7 @@
 			children = (
 				73D2E9CD2B7EA03C0011FEBD /* Font */,
 				73D555BA2B7BFE8500EE8C2D /* Images.xcassets */,
+				7379DDC52B818B5A00456E29 /* Localizable.strings */,
 				73D2E98B2B7D48740011FEBD /* Colors.xcassets */,
 				73D555BC2B7BFE8500EE8C2D /* LaunchScreen.storyboard */,
 			);
@@ -396,6 +409,7 @@
 		73D555F52B7C231000EE8C2D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7379DDC72B818C1000456E29 /* Subview */,
 				73D555B52B7BFE8300EE8C2D /* MainViewController.swift */,
 				73D2E9902B7D50030011FEBD /* MainView.swift */,
 				73D2E9C72B7E9DA50011FEBD /* Components */,
@@ -509,6 +523,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				73D2E98C2B7D48740011FEBD /* Colors.xcassets in Resources */,
+				7379DDC62B818B5A00456E29 /* Localizable.strings in Resources */,
 				73D2E9D12B7EA0BF0011FEBD /* Manrope-Regular.ttf in Resources */,
 				73D555BE2B7BFE8500EE8C2D /* LaunchScreen.storyboard in Resources */,
 				73D2E9D02B7EA0BF0011FEBD /* Manrope-SemiBold.ttf in Resources */,
@@ -557,6 +572,7 @@
 				73D2E97E2B7D44E30011FEBD /* DefaultMainRouter.swift in Sources */,
 				73D555E72B7C112500EE8C2D /* R.generated.swift in Sources */,
 				7379DDC22B81530600456E29 /* LikeImageObject.swift in Sources */,
+				7379DDC92B818C2800456E29 /* HeaderView.swift in Sources */,
 				73D2E99A2B7D536B0011FEBD /* AboutTheImageView.swift in Sources */,
 				73D2E99C2B7D539E0011FEBD /* AboutTheImageViewModel.swift in Sources */,
 				73D2E9872B7D461F0011FEBD /* BaseViewController.swift in Sources */,
