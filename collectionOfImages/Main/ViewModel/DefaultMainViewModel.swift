@@ -41,6 +41,10 @@ extension DefaultMainViewModel: MainViewModel {
                     try loadImages()
                     return
                 }
+                guard !isFavoriteSubject.value else {
+                    await showFavorites()
+                    return
+                }
                 let collectionOfImage = await convertToImageCollection(with: images)
                 collectionOfImagesSubject.send(collectionOfImage)
             } catch {
