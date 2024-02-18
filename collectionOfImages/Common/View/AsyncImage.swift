@@ -21,6 +21,7 @@ final class AsyncImage: UIImageView {
     }
 }
 
+//MARK: - Private extension
 private extension AsyncImage {
     func downloadImage(with stringURL: String) {
         self.image = R.image.placeholder()

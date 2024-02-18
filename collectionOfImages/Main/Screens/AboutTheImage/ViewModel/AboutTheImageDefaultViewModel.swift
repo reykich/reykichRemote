@@ -36,6 +36,7 @@ extension AboutTheImageDefaultViewModel: AboutTheImageViewModel {
     }
 }
 
+//MARK: - Private Extension
 private extension AboutTheImageDefaultViewModel {
     @MainActor
     func getAboutTheImage() -> AboutTheImage {

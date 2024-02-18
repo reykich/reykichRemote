@@ -38,6 +38,7 @@ extension DefaultLikeManager: LikeManager {
     }
 }
 
+//MARK: - Private Extension
 private extension DefaultLikeManager {
     @MainActor
     func addObject(with image: ImageInfo) {

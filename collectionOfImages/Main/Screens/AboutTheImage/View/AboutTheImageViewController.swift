@@ -27,6 +27,7 @@ final class AboutTheImageViewController: BaseViewController<AboutTheImageView> {
     }
 }
 
+//MARK: - Private Extension
 private extension AboutTheImageViewController {
     func setupAction() {
         contentView.setupAction { [weak self] in

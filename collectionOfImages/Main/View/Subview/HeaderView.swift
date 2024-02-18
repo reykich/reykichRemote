@@ -92,6 +92,7 @@ private extension HeaderView {
     }
 }
 
+//MARK: - UITextFieldDelegate
 extension HeaderView: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.layer.borderColor = R.color.black()!.cgColor

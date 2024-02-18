@@ -148,6 +148,7 @@ private extension MainView {
     }
 }
 
+//MARK: - UICollectionViewDelegate
 extension MainView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? ImageCell else { return }
@@ -155,6 +156,7 @@ extension MainView: UICollectionViewDelegate {
     }
 }
 
+//MARK: - UIScrollViewDelegate
 extension MainView: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard scrollView.contentOffset.y > 0 else {

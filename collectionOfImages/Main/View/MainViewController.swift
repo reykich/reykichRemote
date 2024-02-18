@@ -36,6 +36,7 @@ class MainViewController: BaseViewController<MainView> {
     }
 }
 
+//MARK: - Private Extension
 private extension MainViewController {
     func setupActions() {
         contentView.setupActions { [weak self] index in
