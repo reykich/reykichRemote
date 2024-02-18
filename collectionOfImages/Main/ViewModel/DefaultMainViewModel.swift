@@ -49,11 +49,11 @@ extension DefaultMainViewModel: MainViewModel {
                 }
                 
                 if isFavoriteSubject.value, !searchText.isEmpty {
-                    searchLikedImages(with: searchText)
+                    await searchLikedImages(with: searchText)
                 } else if isFavoriteSubject.value {
                     await showFavorites()
                 } else if !searchText.isEmpty {
-                    search(with: searchText)
+                    await search(with: searchText)
                 } else {
                     collectionOfImagesSubject.send(
                         CollectionOfImages(
@@ -84,9 +84,9 @@ extension DefaultMainViewModel: MainViewModel {
     func processLike(with index: Int) {
         Task { @MainActor in
             if let imagesInfo = imagesInfo {
-                likeManager.handleLike(with: imagesInfo[index])
+                likeManager.handleLike(with: imagesInfo[safe: index] ?? imagesInfo[0])
             }
-            checkActualLikeImages()
+            await checkActualLikeImages()
             
             if isFavoriteSubject.value {
                 showFavorites()
@@ -199,14 +199,14 @@ private extension DefaultMainViewModel {
     }
     
     @MainActor
-    func checkActualLikeImages() {
+    func checkActualLikeImages() async {
         guard let likeImages = likeManager.getLikeImages() else { return }
         self.likeImages = likeImages
-        updateImagesInfo()
+        await updateImagesInfo()
     }
     
     @MainActor
-    func updateImagesInfo() {
+    func updateImagesInfo() async {
         guard let images else { return }
         let imagesInfo = images.map { image in
             return ImageInfo(
