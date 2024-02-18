@@ -65,7 +65,9 @@ struct CollectionOfImages: Hashable {
 
 struct ImageInfo: Hashable {
     let id: Int
+    let albumId: Int
     let imageUrl: String
+    let fullSizeImageUrl: String
     let title: String
     let isLiked: Bool
 }

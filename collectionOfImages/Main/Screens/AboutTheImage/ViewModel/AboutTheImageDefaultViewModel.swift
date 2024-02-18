@@ -3,11 +3,11 @@ import Combine
 
 final class AboutTheImageDefaultViewModel {
     private let likeManager: LikeManager
-    private var image: CollectionOfImageResponse
+    private var image: ImageInfo
     private let aboutTheImageSubject = PassthroughSubject<AboutTheImage, Never>()
     private let isLikedSubject = PassthroughSubject<Bool, Never>()
     
-    init(likeManager: LikeManager, image: CollectionOfImageResponse) {
+    init(likeManager: LikeManager, image: ImageInfo) {
         self.likeManager = likeManager
         self.image = image
     }
@@ -30,7 +30,15 @@ extension AboutTheImageDefaultViewModel: AboutTheImageViewModel {
     
     func processLike() {
         Task { @MainActor in
-            likeManager.handleLike(with: image)
+            let collectionOfImageResponse = CollectionOfImageResponse(
+                albumId: image.albumId,
+                id: image.id,
+                title: image.title,
+                url: image.fullSizeImageUrl,
+                thumbnailUrl: image.imageUrl
+            )
+            
+            likeManager.handleLike(with: collectionOfImageResponse)
             isLikedSubject.send(checkIsLiked(with: image.id))
         }
     }
@@ -41,7 +49,7 @@ private extension AboutTheImageDefaultViewModel {
     func getAboutTheImage() -> AboutTheImage {
         return AboutTheImage(
             id: image.id,
-            url: image.url,
+            url: image.fullSizeImageUrl,
             title: image.title,
             isLiked: checkIsLiked(with: image.id)
         )

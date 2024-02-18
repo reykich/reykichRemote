@@ -66,10 +66,10 @@ private extension MainViewController {
                 self?.contentView.updateUI(with: collectionOfImages)
             }
             .store(in: &cancellableSet)
-        viewModel.collectionOfImageResponse
+        viewModel.aboutTheImage
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] collectionOfImage in
-                self?.router.openAboutTheImageScreen(with: collectionOfImage)
+            .sink { [weak self] imageInfo in
+                self?.router.openAboutTheImageScreen(with: imageInfo)
             }
             .store(in: &cancellableSet)
         viewModel.isFavorite

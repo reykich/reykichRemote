@@ -6,11 +6,11 @@ protocol AboutTheImageDependency: Dependency {
 }
 
 final class AboutTheImageBuilder: Component<AboutTheImageDependency> {
-    func getViewController(with collectionOfImage: CollectionOfImageResponse) -> UIViewController {
-        return AboutTheImageViewController(viewModel: getViewModel(with: collectionOfImage))
+    func getViewController(with imageInfo: ImageInfo) -> UIViewController {
+        return AboutTheImageViewController(viewModel: getViewModel(with: imageInfo))
     }
     
-    private func getViewModel(with collectionOfImage: CollectionOfImageResponse) -> AboutTheImageViewModel {
-        return AboutTheImageDefaultViewModel(likeManager: dependency.likeManager, image: collectionOfImage)
+    private func getViewModel(with imageInfo: ImageInfo) -> AboutTheImageViewModel {
+        return AboutTheImageDefaultViewModel(likeManager: dependency.likeManager, image: imageInfo)
     }
 }

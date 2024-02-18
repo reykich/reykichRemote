@@ -10,7 +10,7 @@ final class DefaultMainViewModel {
     private var searchText = ""
     
     private let collectionOfImagesSubject = PassthroughSubject<CollectionOfImages, Never>()
-    private let collectionOfImageResponseSubject = PassthroughSubject<CollectionOfImageResponse, Never>()
+    private let aboutTheImageSubjet = PassthroughSubject<ImageInfo, Never>()
     private let isFavoriteSubject = CurrentValueSubject<Bool, Never>(false)
     private let favoritePlaceholderEnabledSubject = PassthroughSubject<Bool, Never>()
     
@@ -27,8 +27,8 @@ extension DefaultMainViewModel: MainViewModel {
         collectionOfImagesSubject.eraseToAnyPublisher()
     }
     
-    var collectionOfImageResponse: AnyPublisher<CollectionOfImageResponse, Never> {
-        collectionOfImageResponseSubject.eraseToAnyPublisher()
+    var aboutTheImage: AnyPublisher<ImageInfo, Never> {
+        aboutTheImageSubjet.eraseToAnyPublisher()
     }
     
     var isFavorite: AnyPublisher<Bool, Never> {
@@ -72,10 +72,10 @@ extension DefaultMainViewModel: MainViewModel {
         Task { @MainActor in
             if isFavoriteSubject.value, let image = getImageByTappingOnFavorites(with: index) {
                 print(image)
-                collectionOfImageResponseSubject.send(image)
+                aboutTheImageSubjet.send(image)
             } else {
-                guard let images else { return }
-                collectionOfImageResponseSubject.send(images[index])
+                guard let imagesInfo else { return }
+                aboutTheImageSubjet.send(imagesInfo[index])
             }
         }
     }
@@ -147,7 +147,9 @@ private extension DefaultMainViewModel {
         let imagesInfo = model.map { collectionOfImageResponse in
             return ImageInfo(
                 id: collectionOfImageResponse.id,
+                albumId: collectionOfImageResponse.albumId,
                 imageUrl: collectionOfImageResponse.thumbnailUrl,
+                fullSizeImageUrl: collectionOfImageResponse.url,
                 title: collectionOfImageResponse.title,
                 isLiked: checkIsLiked(with: collectionOfImageResponse.id)
             )
@@ -188,7 +190,9 @@ private extension DefaultMainViewModel {
         let imagesInfo = likeImages?.map { likeImageObject in
             return ImageInfo(
                 id: likeImageObject.id,
+                albumId: likeImageObject.albumId,
                 imageUrl: likeImageObject.thumbnailUrl,
+                fullSizeImageUrl: likeImageObject.url,
                 title: likeImageObject.title,
                 isLiked: true
             )
@@ -209,7 +213,9 @@ private extension DefaultMainViewModel {
         let imagesInfo = images.map { image in
             return ImageInfo(
                 id: image.id,
+                albumId: image.albumId,
                 imageUrl: image.thumbnailUrl,
+                fullSizeImageUrl: image.url,
                 title: image.title,
                 isLiked: checkIsLiked(with: image.id)
             )
@@ -224,9 +230,9 @@ private extension DefaultMainViewModel {
     }
     
     @MainActor
-    func getImageByTappingOnFavorites(with index: Int) -> CollectionOfImageResponse? {
-        guard let imageId = likeImages?[index].id, let images else { return nil }
-        return images.first(where: { $0.id == imageId })
+    func getImageByTappingOnFavorites(with index: Int) -> ImageInfo? {
+        guard let imageId = likeImages?[index].id, let imagesInfo else { return nil }
+        return imagesInfo.first(where: { $0.id == imageId })
     }
     
     //MARK: - private search method
@@ -237,6 +243,7 @@ private extension DefaultMainViewModel {
         if searchImagesInfo.isEmpty {
             collectionOfImagesSubject.send(CollectionOfImages(section: .main, imagesInfo: []))
         } else {
+            self.imagesInfo = searchImagesInfo
             collectionOfImagesSubject.send(
                 CollectionOfImages(
                     section: .main,

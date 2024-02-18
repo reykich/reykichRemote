@@ -4,9 +4,9 @@ import UIKit
 
 final class MainComponent: Component<EmptyDependency> {
     func getAboutTheImageViewController(
-        with collectionOfImage: CollectionOfImageResponse
+        with imageInfo: ImageInfo
     ) -> UIViewController {
-        return aboutTheImageBuilder.getViewController(with: collectionOfImage)
+        return aboutTheImageBuilder.getViewController(with: imageInfo)
     }
     
     private var aboutTheImageBuilder: AboutTheImageBuilder {

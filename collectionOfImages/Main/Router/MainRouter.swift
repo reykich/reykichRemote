@@ -1,5 +1,5 @@
 import Foundation
 
 protocol MainRouter: AnyObject {
-    func openAboutTheImageScreen(with collectionOfImage: CollectionOfImageResponse)
+    func openAboutTheImageScreen(with imageInfo: ImageInfo)
 }
