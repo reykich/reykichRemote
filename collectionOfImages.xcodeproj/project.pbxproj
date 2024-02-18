@@ -11,6 +11,7 @@
 		7316859F2B811198002B9AEE /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7316859E2B811198002B9AEE /* ImageCacheManager.swift */; };
 		7379DDBE2B81527E00456E29 /* LikeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7379DDBD2B81527E00456E29 /* LikeManager.swift */; };
 		7379DDC22B81530600456E29 /* LikeImageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7379DDC12B81530600456E29 /* LikeImageObject.swift */; };
+		7379DDC42B81898600456E29 /* DefaultLikeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7379DDC32B81898600456E29 /* DefaultLikeManager.swift */; };
 		73D2E9792B7D43620011FEBD /* MainComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D2E9782B7D43620011FEBD /* MainComponent.swift */; };
 		73D2E97C2B7D44A10011FEBD /* MainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D2E97B2B7D44A10011FEBD /* MainRouter.swift */; };
 		73D2E97E2B7D44E30011FEBD /* DefaultMainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D2E97D2B7D44E30011FEBD /* DefaultMainRouter.swift */; };
@@ -66,6 +67,7 @@
 		7316859E2B811198002B9AEE /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		7379DDBD2B81527E00456E29 /* LikeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeManager.swift; sourceTree = "<group>"; };
 		7379DDC12B81530600456E29 /* LikeImageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeImageObject.swift; sourceTree = "<group>"; };
+		7379DDC32B81898600456E29 /* DefaultLikeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLikeManager.swift; sourceTree = "<group>"; };
 		73D2E9782B7D43620011FEBD /* MainComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainComponent.swift; sourceTree = "<group>"; };
 		73D2E97B2B7D44A10011FEBD /* MainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRouter.swift; sourceTree = "<group>"; };
 		73D2E97D2B7D44E30011FEBD /* DefaultMainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMainRouter.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 			children = (
 				7379DDC02B8152E700456E29 /* DataBase */,
 				7379DDBD2B81527E00456E29 /* LikeManager.swift */,
+				7379DDC32B81898600456E29 /* DefaultLikeManager.swift */,
 			);
 			path = LikeManager;
 			sourceTree = "<group>";
@@ -546,6 +549,7 @@
 				73D555EF2B7C202E00EE8C2D /* RootComponent.swift in Sources */,
 				73D555B22B7BFE8300EE8C2D /* AppDelegate.swift in Sources */,
 				73D2E9842B7D454C0011FEBD /* DefaultMainViewModel.swift in Sources */,
+				7379DDC42B81898600456E29 /* DefaultLikeManager.swift in Sources */,
 				73D555B42B7BFE8300EE8C2D /* SceneDelegate.swift in Sources */,
 				73D2E9822B7D45290011FEBD /* MainViewModel.swift in Sources */,
 				73D2E9C92B7E9DCC0011FEBD /* ImageCell.swift in Sources */,

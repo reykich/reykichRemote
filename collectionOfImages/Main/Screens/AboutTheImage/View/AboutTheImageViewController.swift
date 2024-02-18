@@ -15,7 +15,9 @@ final class AboutTheImageViewController: BaseViewController<AboutTheImageView> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupAction()
         configureBindings()
+        viewModel.viewDidLoad()
     }
     
     deinit {
@@ -26,11 +28,23 @@ final class AboutTheImageViewController: BaseViewController<AboutTheImageView> {
 }
 
 private extension AboutTheImageViewController {
+    func setupAction() {
+        contentView.setupAction { [weak self] in
+            self?.viewModel.processLike()
+        }
+    }
+    
     func configureBindings() {
         viewModel.aboutTheImage
             .receive(on: DispatchQueue.main)
             .sink { [weak self] aboutTheImage in
                 self?.contentView.updateUI(with: aboutTheImage)
+            }
+            .store(in: &cancellableSet)
+        viewModel.isLiked
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isLiked in
+                self?.contentView.updateLike(with: isLiked)
             }
             .store(in: &cancellableSet)
     }

@@ -1,10 +1,12 @@
 import Foundation
 import NeedleFoundation
-import UIKit 
+import UIKit
 
 final class MainComponent: Component<EmptyDependency> {
-    func getAboutTheImageViewController(with aboutTheImage: AboutTheImage) -> UIViewController {
-        return aboutTheImageBuilder.getViewController(with: aboutTheImage)
+    func getAboutTheImageViewController(
+        with collectionOfImage: CollectionOfImageResponse
+    ) -> UIViewController {
+        return aboutTheImageBuilder.getViewController(with: collectionOfImage)
     }
     
     private var aboutTheImageBuilder: AboutTheImageBuilder {

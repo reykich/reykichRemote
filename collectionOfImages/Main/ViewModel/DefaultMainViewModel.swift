@@ -6,7 +6,7 @@ final class DefaultMainViewModel {
     private var images: [CollectionOfImageResponse]?
     private var likeImages: [LikeImageObject]?
     private let collectionOfImagesSubject = PassthroughSubject<CollectionOfImages, Never>()
-    private let aboutTheImageSubject = PassthroughSubject<AboutTheImage, Never>()
+    private let collectionOfImageResponseSubject = PassthroughSubject<CollectionOfImageResponse, Never>()
     
     init(likeManager: LikeManager) {
         self.likeManager = likeManager
@@ -18,8 +18,8 @@ extension DefaultMainViewModel: MainViewModel {
         collectionOfImagesSubject.eraseToAnyPublisher()
     }
     
-    var aboutTheImage: AnyPublisher<AboutTheImage, Never> {
-        aboutTheImageSubject.eraseToAnyPublisher()
+    var collectionOfImageResponse: AnyPublisher<CollectionOfImageResponse, Never> {
+        collectionOfImageResponseSubject.eraseToAnyPublisher()
     }
     
     func viewViewAppear() {
@@ -40,8 +40,10 @@ extension DefaultMainViewModel: MainViewModel {
     
     func selectAboutTheImage(with index: Int) {
         guard let images else { return }
-        let image = images[index]
-        aboutTheImageSubject.send(AboutTheImage(id: image.id, url: image.url, title: image.title))
+        Task { @MainActor in
+            let image = images[index]
+            collectionOfImageResponseSubject.send(image)
+        }
     }
     
     func processLike(with index: Int) {
@@ -111,4 +113,5 @@ struct AboutTheImage {
     let id: Int
     let url: String
     let title: String
+    let isLiked: Bool
 }

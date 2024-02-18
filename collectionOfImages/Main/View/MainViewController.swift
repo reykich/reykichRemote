@@ -53,10 +53,10 @@ private extension MainViewController {
                 self?.contentView.updateUI(with: collectionOfImages)
             }
             .store(in: &cancellableSet)
-        viewModel.aboutTheImage
+        viewModel.collectionOfImageResponse
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] aboutTheImage in
-                self?.router.openAboutTheImageScreen(with: aboutTheImage)
+            .sink { [weak self] collectionOfImage in
+                self?.router.openAboutTheImageScreen(with: collectionOfImage)
             }
             .store(in: &cancellableSet)
     }
