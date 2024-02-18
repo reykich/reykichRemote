@@ -84,7 +84,7 @@ extension DefaultMainViewModel: MainViewModel {
     func processLike(with id: Int) {
         Task { @MainActor in
             print(index)
-            if let imagesInfo = imagesInfo?.first(where: { $0.id == index }) {
+            if let imagesInfo = imagesInfo?.first(where: { $0.id == id }) {
                 likeManager.handleLike(with: imagesInfo)
             }
             await checkActualLikeImages()
