@@ -24,6 +24,11 @@ class MainViewController: BaseViewController<MainView> {
         viewModel.viewViewAppear()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        contentView.textFieldResignFirstResponder()
+    }
+    
     deinit {
         cancellableSet.forEach { anyCancellable in
             anyCancellable.cancel()

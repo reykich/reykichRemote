@@ -7,6 +7,8 @@ final class DefaultMainViewModel {
     private var images: [CollectionOfImageResponse]?
     private var likeImages: [LikeImageObject]?
     private var imagesInfo: [ImageInfo]?
+    private var searchText = ""
+    
     private let collectionOfImagesSubject = PassthroughSubject<CollectionOfImages, Never>()
     private let collectionOfImageResponseSubject = PassthroughSubject<CollectionOfImageResponse, Never>()
     private let isFavoriteSubject = CurrentValueSubject<Bool, Never>(false)
@@ -46,11 +48,19 @@ extension DefaultMainViewModel: MainViewModel {
                     return
                 }
                 
-                if isFavoriteSubject.value {
+                if isFavoriteSubject.value, !searchText.isEmpty {
+                    searchLikedImages(with: searchText)
+                } else if isFavoriteSubject.value {
                     await showFavorites()
+                } else if !searchText.isEmpty {
+                    search(with: searchText)
                 } else {
-                    let collectionOfImage = await convertToImageCollection(with: images)
-                    collectionOfImagesSubject.send(collectionOfImage)
+                    collectionOfImagesSubject.send(
+                        CollectionOfImages(
+                            section: .main,
+                            imagesInfo: imagesInfo ?? []
+                        )
+                    )
                 }
             } catch {
                 print(error)
@@ -61,6 +71,7 @@ extension DefaultMainViewModel: MainViewModel {
     func selectAboutTheImage(with index: Int) {
         Task { @MainActor in
             if isFavoriteSubject.value, let image = getImageByTappingOnFavorites(with: index) {
+                print(image)
                 collectionOfImageResponseSubject.send(image)
             } else {
                 guard let images else { return }
@@ -75,11 +86,16 @@ extension DefaultMainViewModel: MainViewModel {
             guard let images else { return }
             likeManager.handleLike(with: images[index])
             checkActualLikeImages()
+            
             if isFavoriteSubject.value {
                 showFavorites()
             } else {
-                let collectionOfImage = convertToImageCollection(with: images)
-                collectionOfImagesSubject.send(collectionOfImage)
+                collectionOfImagesSubject.send(
+                    CollectionOfImages(
+                        section: .main,
+                        imagesInfo: imagesInfo ?? []
+                    )
+                )
             }
         }
     }
@@ -96,12 +112,18 @@ extension DefaultMainViewModel: MainViewModel {
     
     //MARK: - search method
     func search(with text: String) {
-        guard !text.isEmpty else {
-            collectionOfImagesSubject.send(CollectionOfImages(section: .main, imagesInfo: imagesInfo ?? []))
-            return
-        }
-        
-        if isFavoriteSubject.value {
+        searchText = text
+        if text.isEmpty {
+            guard isFavoriteSubject.value else {
+                collectionOfImagesSubject.send(
+                    CollectionOfImages(
+                        section: .main,
+                        imagesInfo: imagesInfo ?? []
+                    )
+                )
+                return
+            }
+        } else if isFavoriteSubject.value {
             searchLikedImages(with: text)
         } else {
             searchImages(with: text)
@@ -124,6 +146,7 @@ private extension DefaultMainViewModel {
     func convertToImageCollection(with model: [CollectionOfImageResponse]) -> CollectionOfImages {
         let imagesInfo = model.map { collectionOfImageResponse in
             return ImageInfo(
+                id: collectionOfImageResponse.id,
                 imageUrl: collectionOfImageResponse.thumbnailUrl,
                 title: collectionOfImageResponse.title,
                 isLiked: checkIsLiked(with: collectionOfImageResponse.id)
@@ -136,8 +159,8 @@ private extension DefaultMainViewModel {
     //MARK: - private favorite method
     @MainActor
     func showFavorites() {
-        if let likeImages = likeImageConvertToImageCollection(),
-           likeImages.imagesInfo.count > 0 {
+        let likeImages = likeImageConvertToImageCollection()
+        if likeImages.imagesInfo.count > 0 {
             isFavoriteSubject.send(true)
             collectionOfImagesSubject.send(likeImages)
         } else {
@@ -149,31 +172,49 @@ private extension DefaultMainViewModel {
     @MainActor
     func hideFavorites() {
         Task { @MainActor in
-            guard let images else { return }
-            let collectionOfImage = convertToImageCollection(with: images)
             favoritePlaceholderEnabledSubject.send(false)
             isFavoriteSubject.send(false)
-            collectionOfImagesSubject.send(collectionOfImage)
+            collectionOfImagesSubject.send(
+                CollectionOfImages(
+                    section: .main,
+                    imagesInfo: imagesInfo ?? []
+                )
+            )
         }
     }
     
     @MainActor
-    func likeImageConvertToImageCollection() -> CollectionOfImages? {
-        guard let likeImages else { return nil }
-        let collectionOfImages = likeImages.map { likeImageObject in
+    func likeImageConvertToImageCollection() -> CollectionOfImages {
+        let imagesInfo = likeImages?.map { likeImageObject in
             return ImageInfo(
+                id: likeImageObject.id,
                 imageUrl: likeImageObject.thumbnailUrl,
                 title: likeImageObject.title,
                 isLiked: true
             )
         }
-        return CollectionOfImages(section: .main, imagesInfo: collectionOfImages)
+        return CollectionOfImages(section: .main, imagesInfo: imagesInfo ?? [])
     }
     
     @MainActor
     func checkActualLikeImages() {
         guard let likeImages = likeManager.getLikeImages() else { return }
         self.likeImages = likeImages
+        updateImagesInfo()
+    }
+    
+    @MainActor
+    func updateImagesInfo() {
+        guard let images else { return }
+        let imagesInfo = images.map { image in
+            return ImageInfo(
+                id: image.id,
+                imageUrl: image.thumbnailUrl,
+                title: image.title,
+                isLiked: checkIsLiked(with: image.id)
+            )
+        }
+        self.imagesInfo = imagesInfo
     }
     
     @MainActor
@@ -210,10 +251,11 @@ private extension DefaultMainViewModel {
         if likeImagesInfo.isEmpty {
             collectionOfImagesSubject.send(CollectionOfImages(section: .main, imagesInfo: []))
         } else {
+            let searchImagesInfo = likeImagesInfo.filter { $0.title.contains(text) }
             collectionOfImagesSubject.send(
                 CollectionOfImages(
                     section: .main,
-                    imagesInfo: likeImagesInfo
+                    imagesInfo: searchImagesInfo
                 )
             )
         }

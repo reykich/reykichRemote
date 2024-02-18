@@ -19,6 +19,10 @@ final class HeaderView: BaseView {
     func updateUI(with isFavorite: Bool) {
         like.setImage(isFavorite ? R.image.like() : R.image.notLike(), for: .normal)
     }
+    
+    func textFieldResignFirstResponder() {
+        textField.resignFirstResponder()
+    }
 }
 
 //MARK: - Setup Action

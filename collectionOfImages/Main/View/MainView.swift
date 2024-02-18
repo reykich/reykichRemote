@@ -49,6 +49,10 @@ final class MainView: BaseView {
         collectionView.isHidden = showPlaceholder
         placeholder.isHidden = !showPlaceholder
     }
+    
+    func textFieldResignFirstResponder() {
+        headerView.textFieldResignFirstResponder()
+    }
 }
 
 //MARK: - Setup Action
