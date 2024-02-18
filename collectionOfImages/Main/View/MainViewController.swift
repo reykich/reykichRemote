@@ -46,8 +46,8 @@ private extension MainViewController {
             self?.contentView.scrollToTop()
         }
         
-        contentView.setupLikeAction { [weak self] index in
-            self?.viewModel.processLike(with: index)
+        contentView.setupLikeAction { [weak self] id in
+            self?.viewModel.processLike(with: id)
         }
         
         contentView.setupFavoriteAction { [weak self] in

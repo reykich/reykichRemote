@@ -81,13 +81,14 @@ extension DefaultMainViewModel: MainViewModel {
     }
     
     //MARK: - favorite method
-    func processLike(with index: Int) {
+    func processLike(with id: Int) {
         Task { @MainActor in
-            if let imagesInfo = imagesInfo {
-                likeManager.handleLike(with: imagesInfo[safe: index] ?? imagesInfo[0])
+            print(index)
+            if let imagesInfo = imagesInfo?.first(where: { $0.id == index }) {
+                likeManager.handleLike(with: imagesInfo)
             }
             await checkActualLikeImages()
-            
+
             if isFavoriteSubject.value {
                 showFavorites()
             } else {
@@ -202,7 +203,7 @@ private extension DefaultMainViewModel {
     func checkActualLikeImages() async {
         guard let likeImages = likeManager.getLikeImages() else { return }
         self.likeImages = likeImages
-        await updateImagesInfo()
+        await searchText.isEmpty ? updateImagesInfo() : updateImageInfoForSearch()
     }
     
     @MainActor
@@ -219,6 +220,26 @@ private extension DefaultMainViewModel {
             )
         }
         self.imagesInfo = imagesInfo
+    }
+    
+    @MainActor
+    func updateImageInfoForSearch() {
+        var searchLikeImagesInfo: [ImageInfo] = []
+        guard let images else { return }
+        for image in images {
+            guard image.title.contains(searchText) else { continue }
+            searchLikeImagesInfo.append(
+                ImageInfo(
+                    id: image.id,
+                    albumId: image.albumId,
+                    imageUrl: image.thumbnailUrl,
+                    fullSizeImageUrl: image.url,
+                    title: image.title,
+                    isLiked: checkIsLiked(with: image.id)
+                )
+            )
+        }
+        self.imagesInfo = searchLikeImagesInfo
     }
     
     @MainActor

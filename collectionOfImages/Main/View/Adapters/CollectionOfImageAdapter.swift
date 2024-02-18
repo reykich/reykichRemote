@@ -42,8 +42,8 @@ private extension CollectionOfImageAdapter {
                     return UICollectionViewCell()
                 }
                 cell.updateUI(with: imageInfo)
-                cell.setupAction { [weak self] in
-                    self?.likeAction?(indexPath.row)
+                cell.setupAction { [weak self] id in
+                    self?.likeAction?(id)
                 }
                 cell.layer.cornerRadius = 5
                 return cell
