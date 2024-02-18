@@ -112,18 +112,16 @@ extension DefaultMainViewModel: MainViewModel {
     }
     
     //MARK: - search method
+    @MainActor
     func search(with text: String) {
         searchText = text
-        if text.isEmpty {
-            guard isFavoriteSubject.value else {
-                collectionOfImagesSubject.send(
-                    CollectionOfImages(
-                        section: .main,
-                        imagesInfo: imagesInfo ?? []
-                    )
-                )
-                return
-            }
+        if text.isEmpty, isFavoriteSubject.value {
+            showFavorites()
+        } else if text.isEmpty, !isFavoriteSubject.value {
+            guard let images else { return }
+            let collectionOfImages = convertToImageCollection(with: images)
+            self.imagesInfo = collectionOfImages.imagesInfo
+            collectionOfImagesSubject.send(collectionOfImages)
         } else if isFavoriteSubject.value {
             searchLikedImages(with: text)
         } else {
@@ -236,9 +234,23 @@ private extension DefaultMainViewModel {
     }
     
     //MARK: - private search method
+    @MainActor
     func searchImages(with text: String) {
-        guard let imagesInfo else { return }
-        let searchImagesInfo = imagesInfo.filter { $0.title.contains(text) }
+        guard let images else { return }
+        var searchImagesInfo: [ImageInfo] = []
+        for image in images {
+            guard image.title.contains(text) else { continue }
+            searchImagesInfo.append(
+                ImageInfo(
+                    id: image.id,
+                    albumId: image.albumId,
+                    imageUrl: image.thumbnailUrl,
+                    fullSizeImageUrl: image.url,
+                    title: image.title,
+                    isLiked: checkIsLiked(with: image.id)
+                )
+            )
+        }
         
         if searchImagesInfo.isEmpty {
             collectionOfImagesSubject.send(CollectionOfImages(section: .main, imagesInfo: []))
@@ -253,16 +265,33 @@ private extension DefaultMainViewModel {
         }
     }
     
+    @MainActor
     func searchLikedImages(with text: String) {
-        guard let likeImagesInfo = imagesInfo?.filter({ $0.isLiked }) else { return }
-        if likeImagesInfo.isEmpty {
+        guard let images else { return }
+        var searchLikeImagesInfo: [ImageInfo] = []
+        for image in images {
+            let isLiked = checkIsLiked(with: image.id)
+            guard isLiked, image.title.contains(text) else { continue }
+            searchLikeImagesInfo.append(
+                ImageInfo(
+                    id: image.id,
+                    albumId: image.albumId,
+                    imageUrl: image.thumbnailUrl,
+                    fullSizeImageUrl: image.url,
+                    title: image.title,
+                    isLiked: isLiked
+                )
+            )
+        }
+        
+        if searchLikeImagesInfo.isEmpty {
             collectionOfImagesSubject.send(CollectionOfImages(section: .main, imagesInfo: []))
         } else {
-            let searchImagesInfo = likeImagesInfo.filter { $0.title.contains(text) }
+            self.imagesInfo = searchLikeImagesInfo
             collectionOfImagesSubject.send(
                 CollectionOfImages(
                     section: .main,
-                    imagesInfo: searchImagesInfo
+                    imagesInfo: searchLikeImagesInfo
                 )
             )
         }
