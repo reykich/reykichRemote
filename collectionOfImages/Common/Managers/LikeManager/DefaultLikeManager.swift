@@ -11,7 +11,7 @@ final class DefaultLikeManager {
 
 extension DefaultLikeManager: LikeManager {
     @MainActor
-    public func handleLike(with image: CollectionOfImageResponse) {
+    public func handleLike(with image: ImageInfo) {
         guard let likeImage = getLikeObject(with: image.id) else {
             addObject(with: image)
             return
@@ -40,7 +40,7 @@ extension DefaultLikeManager: LikeManager {
 
 private extension DefaultLikeManager {
     @MainActor
-    func addObject(with image: CollectionOfImageResponse) {
+    func addObject(with image: ImageInfo) {
         let likeImage = createLikeImageObject(with: image)
         do {
             try realm?.write {
@@ -63,13 +63,13 @@ private extension DefaultLikeManager {
     }
     
     @MainActor
-    func createLikeImageObject(with image: CollectionOfImageResponse) -> LikeImageObject {
+    func createLikeImageObject(with image: ImageInfo) -> LikeImageObject {
         let likeImage = LikeImageObject()
         likeImage.id = image.id
         likeImage.albumId = image.albumId
-        likeImage.url = image.url
+        likeImage.url = image.imageUrl
         likeImage.title = image.title
-        likeImage.thumbnailUrl = image.thumbnailUrl
+        likeImage.thumbnailUrl = image.fullSizeImageUrl
         return likeImage
     }
 }

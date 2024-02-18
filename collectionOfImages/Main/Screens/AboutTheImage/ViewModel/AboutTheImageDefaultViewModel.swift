@@ -30,15 +30,7 @@ extension AboutTheImageDefaultViewModel: AboutTheImageViewModel {
     
     func processLike() {
         Task { @MainActor in
-            let collectionOfImageResponse = CollectionOfImageResponse(
-                albumId: image.albumId,
-                id: image.id,
-                title: image.title,
-                url: image.fullSizeImageUrl,
-                thumbnailUrl: image.imageUrl
-            )
-            
-            likeManager.handleLike(with: collectionOfImageResponse)
+            likeManager.handleLike(with: image)
             isLikedSubject.send(checkIsLiked(with: image.id))
         }
     }

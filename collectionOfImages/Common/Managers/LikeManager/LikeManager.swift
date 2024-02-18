@@ -3,7 +3,7 @@ import RealmSwift
 
 protocol LikeManager: AnyObject {
     @MainActor
-    func handleLike(with image: CollectionOfImageResponse)
+    func handleLike(with image: ImageInfo)
     @MainActor
     func getLikeImages() -> [LikeImageObject]?
     @MainActor

@@ -83,8 +83,9 @@ extension DefaultMainViewModel: MainViewModel {
     //MARK: - favorite method
     func processLike(with index: Int) {
         Task { @MainActor in
-            guard let images else { return }
-            likeManager.handleLike(with: images[index])
+            if let imagesInfo = imagesInfo {
+                likeManager.handleLike(with: imagesInfo[index])
+            }
             checkActualLikeImages()
             
             if isFavoriteSubject.value {
