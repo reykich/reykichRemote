@@ -43,7 +43,7 @@ extension DefaultMainViewModel: MainViewModel {
         Task {
             do {
                 await checkActualLikeImages()
-                guard let images = images else {
+                guard images != nil else {
                     try loadImages()
                     return
                 }
@@ -68,12 +68,12 @@ extension DefaultMainViewModel: MainViewModel {
         }
     }
     
-    func selectAboutTheImage(with id: Int) {
+    func selectAboutTheImage(with index: Int) {
         Task { @MainActor in
-            if isFavoriteSubject.value, let image = getImageByTappingOnFavorites(with: id) {
+            if isFavoriteSubject.value, let image = getImageByTappingOnFavorites(with: index) {
                 aboutTheImageSubjet.send(image)
             } else {
-                guard let imagesInfo = imagesInfo?.first(where: { $0.id == id }) else { return }
+                guard let imagesInfo = imagesInfo?[index] else { return }
                 aboutTheImageSubjet.send(imagesInfo)
             }
         }
@@ -250,10 +250,9 @@ private extension DefaultMainViewModel {
     }
     
     @MainActor
-    func getImageByTappingOnFavorites(with id: Int) -> ImageInfo? {
-        guard let imageId = likeImages?.first(where: { $0.id == id }),
-                let imagesInfo else { return nil }
-        return imagesInfo.first(where: { $0.id == imageId.id })
+    func getImageByTappingOnFavorites(with index: Int) -> ImageInfo? {
+        guard let imagesInfo = imagesInfo?[index] else { return nil }
+        return imagesInfo
     }
     
     //MARK: - private search method
