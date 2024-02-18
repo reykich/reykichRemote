@@ -14,7 +14,7 @@ final class RootComponent: BootstrapComponent {
     }
     
     private var mainViewModel: MainViewModel {
-        return DefaultMainViewModel(likeManager: likeManager)
+        return DefaultMainViewModel(likeManager: likeManager, getImageRequest: getImageRequest)
     }
     
     private var mainRouter: MainRouter {
@@ -32,5 +32,9 @@ final class RootComponent: BootstrapComponent {
         shared {
             return DefaultLikeManager()
         }
+    }
+    
+    private var getImageRequest: GetImageRequest {
+        return GetImageDefaultRequest()
     }
 }

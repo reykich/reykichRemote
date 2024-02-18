@@ -3,6 +3,7 @@ import Combine
 
 final class DefaultMainViewModel {
     private let likeManager: LikeManager
+    private let getImageRequest: GetImageRequest
     private var images: [CollectionOfImageResponse]?
     private var likeImages: [LikeImageObject]?
     private let collectionOfImagesSubject = PassthroughSubject<CollectionOfImages, Never>()
@@ -11,8 +12,10 @@ final class DefaultMainViewModel {
     private let favoritePlaceholderEnabledSubject = PassthroughSubject<Bool, Never>()
     
     
-    init(likeManager: LikeManager) {
+    init(likeManager: LikeManager,
+         getImageRequest: GetImageRequest) {
         self.likeManager = likeManager
+        self.getImageRequest = getImageRequest
     }
 }
 
@@ -92,13 +95,8 @@ extension DefaultMainViewModel: MainViewModel {
 
 private extension DefaultMainViewModel {
     func loadImages() throws {
-        guard let url = URL(string: "https://jsonplaceholder.typicode.com/photos") else { return }
         Task {
-            let (data, _) = try await URLSession.shared.data(from: url)
-            let collectionOfImageResponse = try JSONDecoder().decode(
-                [CollectionOfImageResponse].self,
-                from: data
-            )
+            let collectionOfImageResponse = try await getImageRequest.getImages()
             self.images = collectionOfImageResponse
             let collectionOfImage = await convertToImageCollection(with: collectionOfImageResponse)
             collectionOfImagesSubject.send(collectionOfImage)
@@ -170,14 +168,6 @@ private extension DefaultMainViewModel {
         guard let imageId = likeImages?[index].id, let images else { return nil }
         return images.first(where: { $0.id == imageId })
     }
-}
-
-struct CollectionOfImageResponse: Codable {
-    let albumId: Int
-    let id: Int
-    let title: String
-    let url: String
-    let thumbnailUrl: String
 }
 
 struct AboutTheImage {
