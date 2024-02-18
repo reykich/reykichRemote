@@ -48,6 +48,10 @@ private extension MainViewController {
         contentView.setupFavoriteAction { [weak self] in
             self?.viewModel.updateFavoritesDisplay()
         }
+        
+        contentView.setupTextFieldChangedAction { [weak self] text in
+            print(text)
+        }
     }
     
     func configureBindings() {

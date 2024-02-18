@@ -68,6 +68,10 @@ extension MainView {
     func setupFavoriteAction(_ action: @escaping EmptyClosure) {
         headerView.setupAction(action)
     }
+    
+    func setupTextFieldChangedAction(_ action: @escaping (String) -> Void) {
+        headerView.setupChangedAction(action)
+    }
 }
 
 //MARK: - Private Extension
