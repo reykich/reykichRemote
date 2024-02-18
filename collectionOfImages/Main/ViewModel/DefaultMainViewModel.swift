@@ -165,6 +165,7 @@ private extension DefaultMainViewModel {
         let likeImages = likeImageConvertToImageCollection()
         if likeImages.imagesInfo.count > 0 {
             isFavoriteSubject.send(true)
+            self.imagesInfo = likeImages.imagesInfo
             collectionOfImagesSubject.send(likeImages)
         } else {
             isFavoriteSubject.send(true)
@@ -177,12 +178,10 @@ private extension DefaultMainViewModel {
         Task { @MainActor in
             favoritePlaceholderEnabledSubject.send(false)
             isFavoriteSubject.send(false)
-            collectionOfImagesSubject.send(
-                CollectionOfImages(
-                    section: .main,
-                    imagesInfo: imagesInfo ?? []
-                )
-            )
+            guard let images else { return }
+            let collectionOfImages = convertToImageCollection(with: images)
+            self.imagesInfo = collectionOfImages.imagesInfo
+            collectionOfImagesSubject.send(collectionOfImages)
         }
     }
     
