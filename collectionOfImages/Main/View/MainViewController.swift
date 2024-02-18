@@ -50,7 +50,7 @@ private extension MainViewController {
         }
         
         contentView.setupTextFieldChangedAction { [weak self] text in
-            print(text)
+            self?.viewModel.search(with: text)
         }
     }
     

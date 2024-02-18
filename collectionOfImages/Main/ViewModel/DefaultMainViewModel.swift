@@ -6,6 +6,7 @@ final class DefaultMainViewModel {
     private let getImageRequest: GetImageRequest
     private var images: [CollectionOfImageResponse]?
     private var likeImages: [LikeImageObject]?
+    private var imagesInfo: [ImageInfo]?
     private let collectionOfImagesSubject = PassthroughSubject<CollectionOfImages, Never>()
     private let collectionOfImageResponseSubject = PassthroughSubject<CollectionOfImageResponse, Never>()
     private let isFavoriteSubject = CurrentValueSubject<Bool, Never>(false)
@@ -68,6 +69,7 @@ extension DefaultMainViewModel: MainViewModel {
         }
     }
     
+    //MARK: - favorite method
     func processLike(with index: Int) {
         Task { @MainActor in
             guard let images else { return }
@@ -91,8 +93,23 @@ extension DefaultMainViewModel: MainViewModel {
             }
         }
     }
+    
+    //MARK: - search method
+    func search(with text: String) {
+        guard !text.isEmpty else {
+            collectionOfImagesSubject.send(CollectionOfImages(section: .main, imagesInfo: imagesInfo ?? []))
+            return
+        }
+        
+        if isFavoriteSubject.value {
+            searchLikedImages(with: text)
+        } else {
+            searchImages(with: text)
+        }
+    }
 }
 
+//MARK: - Private Extension
 private extension DefaultMainViewModel {
     func loadImages() throws {
         Task {
@@ -103,6 +120,20 @@ private extension DefaultMainViewModel {
         }
     }
     
+    @MainActor
+    func convertToImageCollection(with model: [CollectionOfImageResponse]) -> CollectionOfImages {
+        let imagesInfo = model.map { collectionOfImageResponse in
+            return ImageInfo(
+                imageUrl: collectionOfImageResponse.thumbnailUrl,
+                title: collectionOfImageResponse.title,
+                isLiked: checkIsLiked(with: collectionOfImageResponse.id)
+            )
+        }
+        self.imagesInfo = imagesInfo
+        return CollectionOfImages(section: .main, imagesInfo: imagesInfo)
+    }
+
+    //MARK: - private favorite method
     @MainActor
     func showFavorites() {
         if let likeImages = likeImageConvertToImageCollection(),
@@ -124,18 +155,6 @@ private extension DefaultMainViewModel {
             isFavoriteSubject.send(false)
             collectionOfImagesSubject.send(collectionOfImage)
         }
-    }
-    
-    @MainActor
-    func convertToImageCollection(with model: [CollectionOfImageResponse]) -> CollectionOfImages {
-        let imagesInfo = model.map { collectionOfImageResponse in
-            return ImageInfo(
-                imageUrl: collectionOfImageResponse.thumbnailUrl,
-                title: collectionOfImageResponse.title,
-                isLiked: checkIsLiked(with: collectionOfImageResponse.id)
-            )
-        }
-        return CollectionOfImages(section: .main, imagesInfo: imagesInfo)
     }
     
     @MainActor
@@ -167,6 +186,37 @@ private extension DefaultMainViewModel {
     func getImageByTappingOnFavorites(with index: Int) -> CollectionOfImageResponse? {
         guard let imageId = likeImages?[index].id, let images else { return nil }
         return images.first(where: { $0.id == imageId })
+    }
+    
+    //MARK: - private search method
+    func searchImages(with text: String) {
+        guard let imagesInfo else { return }
+        let searchImagesInfo = imagesInfo.filter { $0.title.contains(text) }
+        
+        if searchImagesInfo.isEmpty {
+            collectionOfImagesSubject.send(CollectionOfImages(section: .main, imagesInfo: []))
+        } else {
+            collectionOfImagesSubject.send(
+                CollectionOfImages(
+                    section: .main,
+                    imagesInfo: searchImagesInfo
+                )
+            )
+        }
+    }
+    
+    func searchLikedImages(with text: String) {
+        guard let likeImagesInfo = imagesInfo?.filter({ $0.isLiked }) else { return }
+        if likeImagesInfo.isEmpty {
+            collectionOfImagesSubject.send(CollectionOfImages(section: .main, imagesInfo: []))
+        } else {
+            collectionOfImagesSubject.send(
+                CollectionOfImages(
+                    section: .main,
+                    imagesInfo: likeImagesInfo
+                )
+            )
+        }
     }
 }
 

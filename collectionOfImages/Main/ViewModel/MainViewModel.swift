@@ -10,4 +10,5 @@ protocol MainViewModel: AnyObject {
     func selectAboutTheImage(with index: Int)
     func processLike(with index: Int)
     func updateFavoritesDisplay()
+    func search(with text: String)
 }
