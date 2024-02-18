@@ -36,17 +36,18 @@ extension DefaultMainViewModel: MainViewModel {
     func viewViewAppear() {
         Task {
             do {
-                await updateLikeImages()
+                await checkActualLikeImages()
                 guard let images = images else {
                     try loadImages()
                     return
                 }
-                guard !isFavoriteSubject.value else {
+                
+                if isFavoriteSubject.value {
                     await showFavorites()
-                    return
+                } else {
+                    let collectionOfImage = await convertToImageCollection(with: images)
+                    collectionOfImagesSubject.send(collectionOfImage)
                 }
-                let collectionOfImage = await convertToImageCollection(with: images)
-                collectionOfImagesSubject.send(collectionOfImage)
             } catch {
                 print(error)
             }
@@ -54,10 +55,13 @@ extension DefaultMainViewModel: MainViewModel {
     }
     
     func selectAboutTheImage(with index: Int) {
-        guard let images else { return }
         Task { @MainActor in
-            let image = images[index]
-            collectionOfImageResponseSubject.send(image)
+            if isFavoriteSubject.value, let image = getImageByTappingOnFavorites(with: index) {
+                collectionOfImageResponseSubject.send(image)
+            } else {
+                guard let images else { return }
+                collectionOfImageResponseSubject.send(images[index])
+            }
         }
     }
     
@@ -65,23 +69,23 @@ extension DefaultMainViewModel: MainViewModel {
         Task { @MainActor in
             guard let images else { return }
             likeManager.handleLike(with: images[index])
-            updateLikeImages()
-            guard !isFavoriteSubject.value else {
+            checkActualLikeImages()
+            if isFavoriteSubject.value {
                 showFavorites()
-                return
+            } else {
+                let collectionOfImage = convertToImageCollection(with: images)
+                collectionOfImagesSubject.send(collectionOfImage)
             }
-            let collectionOfImage = convertToImageCollection(with: images)
-            collectionOfImagesSubject.send(collectionOfImage)
         }
     }
     
     func updateFavoritesDisplay() {
         Task { @MainActor in
-            guard isFavoriteSubject.value else {
+            if isFavoriteSubject.value {
+                hideFavorites()
+            } else {
                 showFavorites()
-                return
             }
-            hideFavorites()
         }
     }
 }
@@ -103,13 +107,14 @@ private extension DefaultMainViewModel {
     
     @MainActor
     func showFavorites() {
-        guard let likeImages = likeImageConvertToImageCollection(), likeImages.imagesInfo.count > 0 else {
+        if let likeImages = likeImageConvertToImageCollection(),
+           likeImages.imagesInfo.count > 0 {
+            isFavoriteSubject.send(true)
+            collectionOfImagesSubject.send(likeImages)
+        } else {
             isFavoriteSubject.send(true)
             favoritePlaceholderEnabledSubject.send(true)
-            return
         }
-        isFavoriteSubject.send(true)
-        collectionOfImagesSubject.send(likeImages)
     }
     
     @MainActor
@@ -149,19 +154,21 @@ private extension DefaultMainViewModel {
     }
     
     @MainActor
-    func updateLikeImages() {
-        guard let likeImages = likeManager.getLikeImages() else {
-            return
-        }
+    func checkActualLikeImages() {
+        guard let likeImages = likeManager.getLikeImages() else { return }
         self.likeImages = likeImages
     }
     
     @MainActor
     func checkIsLiked(with id: Int) -> Bool {
-        guard let likeImages = likeImages else {
-            return false
-        }
+        guard let likeImages = likeImages else { return false }
         return likeImages.contains { $0.id == id }
+    }
+    
+    @MainActor
+    func getImageByTappingOnFavorites(with index: Int) -> CollectionOfImageResponse? {
+        guard let imageId = likeImages?[index].id, let images else { return nil }
+        return images.first(where: { $0.id == imageId })
     }
 }
 
