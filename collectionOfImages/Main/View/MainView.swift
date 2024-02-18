@@ -150,7 +150,8 @@ private extension MainView {
 
 extension MainView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        action?(indexPath.row)
+        guard let cell = collectionView.cellForItem(at: indexPath) as? ImageCell else { return }
+        action?(cell.tag)
     }
 }
 

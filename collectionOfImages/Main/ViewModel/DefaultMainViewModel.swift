@@ -68,14 +68,13 @@ extension DefaultMainViewModel: MainViewModel {
         }
     }
     
-    func selectAboutTheImage(with index: Int) {
+    func selectAboutTheImage(with id: Int) {
         Task { @MainActor in
-            if isFavoriteSubject.value, let image = getImageByTappingOnFavorites(with: index) {
-                print(image)
+            if isFavoriteSubject.value, let image = getImageByTappingOnFavorites(with: id) {
                 aboutTheImageSubjet.send(image)
             } else {
-                guard let imagesInfo else { return }
-                aboutTheImageSubjet.send(imagesInfo[index])
+                guard let imagesInfo = imagesInfo?.first(where: { $0.id == id }) else { return }
+                aboutTheImageSubjet.send(imagesInfo)
             }
         }
     }
@@ -83,7 +82,6 @@ extension DefaultMainViewModel: MainViewModel {
     //MARK: - favorite method
     func processLike(with id: Int) {
         Task { @MainActor in
-            print(index)
             if let imagesInfo = imagesInfo?.first(where: { $0.id == id }) {
                 likeManager.handleLike(with: imagesInfo)
             }
@@ -162,13 +160,16 @@ private extension DefaultMainViewModel {
     @MainActor
     func showFavorites() {
         let likeImages = likeImageConvertToImageCollection()
-        if likeImages.imagesInfo.count > 0 {
+        if likeImages.imagesInfo.count > 0, !searchText.isEmpty {
+            searchLikedImages(with: searchText)
+            isFavoriteSubject.send(true)
+        } else if likeImages.imagesInfo.count == 0, searchText.isEmpty {
+            isFavoriteSubject.send(true)
+            favoritePlaceholderEnabledSubject.send(true)
+        } else {
             isFavoriteSubject.send(true)
             self.imagesInfo = likeImages.imagesInfo
             collectionOfImagesSubject.send(likeImages)
-        } else {
-            isFavoriteSubject.send(true)
-            favoritePlaceholderEnabledSubject.send(true)
         }
     }
     
@@ -249,9 +250,10 @@ private extension DefaultMainViewModel {
     }
     
     @MainActor
-    func getImageByTappingOnFavorites(with index: Int) -> ImageInfo? {
-        guard let imageId = likeImages?[index].id, let imagesInfo else { return nil }
-        return imagesInfo.first(where: { $0.id == imageId })
+    func getImageByTappingOnFavorites(with id: Int) -> ImageInfo? {
+        guard let imageId = likeImages?.first(where: { $0.id == id }),
+                let imagesInfo else { return nil }
+        return imagesInfo.first(where: { $0.id == imageId.id })
     }
     
     //MARK: - private search method
