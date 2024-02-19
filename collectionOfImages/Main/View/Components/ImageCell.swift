@@ -42,8 +42,8 @@ extension ImageCell {
 //MARK: - Private Extension
 private extension ImageCell {
     func setupUI() {
-        backgroundColor = R.color.gray()
         contentView.layer.cornerRadius = 5
+        contentView.backgroundColor = R.color.gray()
         setupImage()
         setupLike()
         setupTitle()
@@ -64,7 +64,7 @@ private extension ImageCell {
     func setupLike() {
         like.setImage(R.image.notLike(), for: .normal)
         like.addTarget(self, action: #selector(likeDidTap), for: .touchUpInside)
-        addSubview(like)
+        contentView.addSubview(like)
         
         like.snp.makeConstraints {
             $0.right.equalToSuperview().inset(15.scaled)
