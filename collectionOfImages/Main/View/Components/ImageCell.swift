@@ -43,6 +43,7 @@ extension ImageCell {
 private extension ImageCell {
     func setupUI() {
         backgroundColor = R.color.gray()
+        contentView.layer.cornerRadius = 5
         setupImage()
         setupLike()
         setupTitle()

@@ -45,7 +45,6 @@ private extension CollectionOfImageAdapter {
                 cell.setupAction { [weak self] id in
                     self?.likeAction?(id)
                 }
-                cell.layer.cornerRadius = 5
                 return cell
             })
         return dataSource
