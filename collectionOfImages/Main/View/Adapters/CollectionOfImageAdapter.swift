@@ -34,7 +34,7 @@ private extension CollectionOfImageAdapter {
     func createDataSource() -> CollectionOfImageDataSource {
         let dataSource = CollectionOfImageDataSource(
             collectionView: collectionView,
-            cellProvider: { collectionView, indexPath, imageInfo in
+            cellProvider: { [weak self] collectionView, indexPath, imageInfo in
                 guard let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: ImageCell.identifier,
                     for: indexPath) as? ImageCell else {
